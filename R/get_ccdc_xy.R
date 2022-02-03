@@ -40,11 +40,11 @@ ccdc_func<-function(julian_date,coef_intp,coef_slp,coef_cos,coef_sin,coef_cos2,c
 #'
 #' @param ccdc_img A multiband STARS raster of the CCDC output from Google Earth Engine
 #' with all coefficients for each segment present (i.e., see EE script)
-#' @param x_coord Value of the X coordinate of interest, must intersect the CCDC image 
-#' @param y_coord Value of the Y coordinate of interest, must intersect the CCDC image 
-#' @param epsg EPSG code for CRS of the CCDC image 
-#' @param band Band of interest, i.e., 'blue','green','red','nir','swir1','swir2' or 'therm'
-#' @param n_seg Default 4. Number of segments to compute time series for, must be 
+#' @param x_coord (float) Value of the X coordinate of interest, must intersect the CCDC image 
+#' @param y_coord (float) Value of the Y coordinate of interest, must intersect the CCDC image 
+#' @param epsg (integer) EPSG code for CRS of the CCDC image 
+#' @param band (character) Band of interest, i.e., 'blue','green','red','nir','swir1','swir2' or 'therm'
+#' @param n_seg (integer) Default 4. Number of segments to compute time series for, must be 
 #' less then or equal to maximum number of exported segments (i.e., see EE script)
 #' @return A 2-col matrix with the Julian date time series in the first and the
 #' predicted CCDC time series in the second. 

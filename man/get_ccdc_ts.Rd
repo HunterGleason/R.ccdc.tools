@@ -10,15 +10,15 @@ get_ccdc_ts(ccdc_img, x_coord, y_coord, epsg, band, n_seg = 4)
 \item{ccdc_img}{A multiband STARS raster of the CCDC output from Google Earth Engine
 with all coefficients for each segment present (i.e., see EE script)}
 
-\item{x_coord}{Value of the X coordinate of interest, must intersect the CCDC image}
+\item{x_coord}{(float) Value of the X coordinate of interest, must intersect the CCDC image}
 
-\item{y_coord}{Value of the Y coordinate of interest, must intersect the CCDC image}
+\item{y_coord}{(float) Value of the Y coordinate of interest, must intersect the CCDC image}
 
-\item{epsg}{EPSG code for CRS of the CCDC image}
+\item{epsg}{(integer) EPSG code for CRS of the CCDC image}
 
-\item{band}{Band of interest, i.e., 'blue','green','red','nir','swir1','swir2' or 'therm'}
+\item{band}{(character) Band of interest, i.e., 'blue','green','red','nir','swir1','swir2' or 'therm'}
 
-\item{n_seg}{Default 4. Number of segments to compute time series for, must be
+\item{n_seg}{(integer) Default 4. Number of segments to compute time series for, must be
 less then or equal to maximum number of exported segments (i.e., see EE script)}
 }
 \value{
