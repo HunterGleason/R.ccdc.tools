@@ -4,7 +4,8 @@
 #' Provided a CCDC image and a polygon layer with some category field, this function plots a sample
 #' of the pixels with each polygon grouped by category, indicated by the 'catg_col' parameter. 
 #'
-#' @param ccdc_img  (SpatRaster) The CCDC image for which to extract coefficients.
+#' @param ccdc_img  (SpatRaster) The CCDC image for which to extract coefficients, for one segment only, 
+#' such as the output from 'gen_latest_ccdc_rast'.
 #' @param zone_poly (SpatVector) Polygons for which to plot CCDC time series sample, by category. 
 #' @param catg_col (Character) The name of the column that defines the category of each polygon. 
 #' @param days The number of days for which to plot the CCDC time series, defaults to 730 (2 years)
