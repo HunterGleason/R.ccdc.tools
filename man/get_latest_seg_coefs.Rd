@@ -9,7 +9,8 @@ get_latest_seg_coefs(ccdc_df, band, max_seg, xy = F)
 \arguments{
 \item{ccdc_df}{(Data.frame) The CCDC image as a data frame.}
 
-\item{band}{(character) The name of the band for which to extract CCDC coefficients.}
+\item{band}{(character) The name of the band for which to extract CCDC coefficients. One of 'blue', 'green', 'red'
+'nir', 'swir1' or 'swir2'.}
 
 \item{max_seg}{(integer) The maximum number of segments present in the CCDC image.}
 

@@ -7,7 +7,8 @@
 #' for the that segment. 
 #'
 #' @param ccdc_df (Data.frame) The CCDC image as a data frame.
-#' @param band (character) The name of the band for which to extract CCDC coefficients.
+#' @param band (character) The name of the band for which to extract CCDC coefficients. One of 'blue', 'green', 'red'
+#' 'nir', 'swir1' or 'swir2'.
 #' @param max_seg (integer) The maximum number of segments present in the CCDC image.
 #' @param xy (boolean) True or False, return the CCDC coefficient data frame with xy coordinates, and 'tStart'  
 #' @return (matrix) A matrix with the most current CCDC coefficients for the specified band at each pixel location, 
