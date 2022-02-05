@@ -92,10 +92,10 @@ get_latest_seg_coefs <- function(ccdc_df,band,max_seg,xy=F)
 gen_latest_ccdc_rast<-function(ccdc_img,max_seg,as_SpatRaster=T)
 {
   #Get original CRS
-  orig_crs<-crs(ccdc_img)
+  orig_crs<-terra::crs(ccdc_img)
   
   #Convert the CCDC raster to a data frame 
-  ccdc_df<-as.data.frame(ccdc_img,xy=T)
+  ccdc_df<-terra::as.data.frame(ccdc_img,xy=T)
   
   #Get the coefficients associated with the most current segment for each band 
   blue<-get_latest_seg_coefs(ccdc_df,'blue',max_seg,xy=T)
@@ -112,8 +112,8 @@ gen_latest_ccdc_rast<-function(ccdc_img,max_seg,as_SpatRaster=T)
   if(as_SpatRaster==T)
   {
     #Convert data.frame to SpatRast and return 
-    ccdc_latest_rast<-rast(ccdc_latest,type='xyz')
-    crs(ccdc_latest_rast)<-orig_crs
+    ccdc_latest_rast<-terra::rast(ccdc_latest,type='xyz')
+    terra::crs(ccdc_latest_rast)<-orig_crs
     
     return(ccdc_latest_rast)
     
