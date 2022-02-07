@@ -7,7 +7,8 @@ remotes::install_github('HunterGleason/R.ccdc.tools')
 ````
 
 # Example
-````#Imports
+````
+#Imports
 library(R.ccdc.tools)
 library(stars)
 library(sf)
@@ -43,5 +44,8 @@ plot(ts_nir[,'jdoy_vec'],ts_nir[,'ts'],type='l',xlab='Julian Date',ylab='NIR Ban
 
 latest<-gen_latest_ccdc_rast(ccdc_img,4)
 plot(latest)
+
+land_cover <-  
+
 
 ````
