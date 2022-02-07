@@ -44,13 +44,22 @@ ts_nir<-get_ccdc_ts(ccdc_img,x_coord,y_coord,epsg,'nir',4)
 plot(ts_green[,'jdoy_vec'],ts_green[,'ts'],type='l',xlab='Julian Date',ylab='Green Band Surface Reflectance')
 plot(ts_nir[,'jdoy_vec'],ts_nir[,'ts'],type='l',xlab='Julian Date',ylab='NIR Band Surface Reflectance')
 
+#Get a CCDC image with coeffecents for latest segments (present day landscape conditions)
 latest<-gen_latest_ccdc_rast(ccdc_img,4)
 plot(latest)
 
+#Load a example catagorical layer (e.g., landcover polygons)
 landcover <- landcover
 landcover <- vect(landcover)
 
-plot_ccdc_ts(latest,landcover,'landcover',360,'green',60)
+#Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the near infarred band ('nir') over a 720 day period 
+plot_ccdc_ts(latest,landcover,'landcover',720,'nir',60)
+
+#Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the near infarred band ('nir') over a 720 day period 
+plot_ccdc_ts(latest,landcover,'landcover',720,'swir2',60)
+
+#Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the shortwave infrared band 2 ('swir2') over a 720 day period 
+plot_ccdc_ts(latest,landcover,'landcover',720,'swir2',60)
 
 ````
 
