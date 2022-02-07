@@ -4,7 +4,7 @@
 #' Provided a CCDC image and a polygon layer with some category field, this function plots a sample
 #' of the pixels with each polygon grouped by category, indicated by the 'catg_col' parameter. 
 #'
-#' @param ccdc_img  (SpatRaster) The CCDC image for which to extract coefficients, for one segment only, 
+#' @param ccdc_img  (SpatRaster,stars) The CCDC image for which to extract coefficients, for one segment only, 
 #' such as the output from 'gen_latest_ccdc_rast'.
 #' @param zone_poly (SpatVector) Polygons for which to plot CCDC time series sample, by category. 
 #' @param catg_col (Character) The name of the column that defines the category of each polygon. 
@@ -16,6 +16,12 @@
 #' @export
 plot_ccdc_ts<-function(ccdc_img,zone_poly,catg_col,days=730,band,N=60)
 {
+  
+  if(class(ccdc_img)=='stars')
+  {
+    ccdc_img<-terra::rast(ccdc_img)
+  }
+  
   zonal_vals <- terra::extract(ccdc_img,zone_poly)
   zonal_vals$type <- as.factor(as.data.frame(zone_poly)[,catg_col][zonal_vals$ID])
   zonal_vals$type_int<-as.numeric(zonal_vals$type)

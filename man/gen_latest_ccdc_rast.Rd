@@ -7,7 +7,7 @@
 gen_latest_ccdc_rast(ccdc_img, max_seg, as_SpatRaster = T)
 }
 \arguments{
-\item{ccdc_img}{(SpatRaster) The CCDC image for which to extract coefficients.}
+\item{ccdc_img}{(SpatRaster, stars) The CCDC image for which to extract coefficients.}
 
 \item{max_seg}{(integer) The maximum number of segments present in the CCDC image.}
 

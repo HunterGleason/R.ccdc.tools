@@ -38,7 +38,7 @@ ccdc_func<-function(julian_date,coef_intp,coef_slp,coef_cos,coef_sin,coef_cos2,c
 #'a X-Y coordinate this function returns the surface reflectance time series for
 #'the intersected Landsat pixel. 
 #'
-#' @param ccdc_img A multiband STARS raster of the CCDC output from Google Earth Engine
+#' @param ccdc_img (stars, SpatRaster) A multiband raster of the CCDC output from Google Earth Engine
 #' with all coefficients for each segment present (i.e., see EE script)
 #' @param x_coord (float) Value of the X coordinate of interest, must intersect the CCDC image 
 #' @param y_coord (float) Value of the Y coordinate of interest, must intersect the CCDC image 
@@ -51,6 +51,11 @@ ccdc_func<-function(julian_date,coef_intp,coef_slp,coef_cos,coef_sin,coef_cos2,c
 #' @export
 get_ccdc_ts <- function(ccdc_img,x_coord,y_coord,epsg,band,n_seg=4)
 {
+  
+  if(class(terra::rast(ccdc_img))[1]=="SpatRaster")
+  {
+    ccdc_img<-stars::st_as_stars(ccdc_img)
+  }
   
   DF <- data.frame(
     x=c(x_coord),

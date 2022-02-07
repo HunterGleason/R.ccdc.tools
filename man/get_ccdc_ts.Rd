@@ -7,7 +7,7 @@
 get_ccdc_ts(ccdc_img, x_coord, y_coord, epsg, band, n_seg = 4)
 }
 \arguments{
-\item{ccdc_img}{A multiband STARS raster of the CCDC output from Google Earth Engine
+\item{ccdc_img}{(stars, SpatRaster) A multiband raster of the CCDC output from Google Earth Engine
 with all coefficients for each segment present (i.e., see EE script)}
 
 \item{x_coord}{(float) Value of the X coordinate of interest, must intersect the CCDC image}

@@ -82,7 +82,7 @@ get_latest_seg_coefs <- function(ccdc_df,band,max_seg,xy=F)
 #' date of the segment as a Julian date. If there is only one segment (no change), returns coefficients 
 #' for the that segment. 
 #'
-#' @param ccdc_img (SpatRaster) The CCDC image for which to extract coefficients.
+#' @param ccdc_img (SpatRaster, stars) The CCDC image for which to extract coefficients.
 #' @param max_seg (integer) The maximum number of segments present in the CCDC image.
 #' @param as_SpatRaster (boolean) True or False, return the CCDC coefficient (and 'tStart') 
 #' as a SpatRaster image, otherwise a data frame. default TRUE.
@@ -91,6 +91,11 @@ get_latest_seg_coefs <- function(ccdc_df,band,max_seg,xy=F)
 #' @export
 gen_latest_ccdc_rast<-function(ccdc_img,max_seg,as_SpatRaster=T)
 {
+  if(class(ccdc_img)=="stars")
+  {
+    ccdc_img<-terra::rast(ccdc_img)
+  }
+  
   #Get original CRS
   orig_crs<-terra::crs(ccdc_img)
   

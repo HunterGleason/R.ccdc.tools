@@ -7,7 +7,7 @@
 plot_ccdc_ts(ccdc_img, zone_poly, catg_col, days = 730, band, N = 60)
 }
 \arguments{
-\item{ccdc_img}{(SpatRaster) The CCDC image for which to extract coefficients, for one segment only,
+\item{ccdc_img}{(SpatRaster,stars) The CCDC image for which to extract coefficients, for one segment only,
 such as the output from 'gen_latest_ccdc_rast'.}
 
 \item{zone_poly}{(SpatVector) Polygons for which to plot CCDC time series sample, by category.}
