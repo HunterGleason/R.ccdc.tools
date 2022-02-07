@@ -1,13 +1,15 @@
 # R.ccdc.tools
-Simple R tools for working with Continious Change Detection and Classification (Zhu &amp; Woodcock 2014) images. 
+Simple R tools for working with Continuous Change Detection and Classification (Zhu &amp; Woodcock 2014) images. 
 
 # Installation
 ````
 remotes::install_github('HunterGleason/R.ccdc.tools')
+
 ````
 
 # Example
 ````
+
 #Imports
 library(R.ccdc.tools)
 library(stars)
@@ -44,8 +46,5 @@ plot(ts_nir[,'jdoy_vec'],ts_nir[,'ts'],type='l',xlab='Julian Date',ylab='NIR Ban
 
 latest<-gen_latest_ccdc_rast(ccdc_img,4)
 plot(latest)
-
-land_cover <-  
-
 
 ````
