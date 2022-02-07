@@ -32,6 +32,7 @@ plot_ccdc_ts<-function(ccdc_img,zone_poly,catg_col,days=730,band,N=60)
     dplyr::slice_sample(n=N)
   
   zonal_vals<-as.data.frame(zonal_vals)
+  zonal_vals<-zonal_vals[complete.cases(zonal_vals),]
   
   i<-1
   

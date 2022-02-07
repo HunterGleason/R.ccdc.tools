@@ -47,4 +47,10 @@ plot(ts_nir[,'jdoy_vec'],ts_nir[,'ts'],type='l',xlab='Julian Date',ylab='NIR Ban
 latest<-gen_latest_ccdc_rast(ccdc_img,4)
 plot(latest)
 
+landcover <- landcover
+landcover <- vect(landcover)
+
+plot_ccdc_ts(latest,landcover,'landcover',360,'green',60)
+
 ````
+
