@@ -15,6 +15,7 @@ library(R.ccdc.tools)
 library(stars)
 library(sf)
 library(terra)
+library(bcdata)
 
 #Read in a CDCC image example data (see https://github.com/parevalo/gee-ccdc-tools) as a stars object
 ccdc_img = exampleData
@@ -52,11 +53,26 @@ plot(latest)
 landcover <- landcover
 landcover <- vect(landcover)
 
+#Get freshwater wetlands within AOI, merge with landcover layer 
+wetlands<-bcdc_query_geodata('93b413d8-1840-4770-9629-641d74bd1cc6') %>%
+  filter(INTERSECTS(st_bbox(st_as_stars(latest)))) %>%
+  collect()
+
+wetlands<-wetlands[,'id']
+wetlands$landcover<-'Wetland'
+
+
+landcover <- rbind(landcover,vect(wetlands)) 
+
+#Plot layers
+plot(latest,maxnl=1)
+plot(landcover,add=T,col=as.factor(landcover$landcover))
+
 #Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the near infarred band ('nir') over a 720 day period 
 plot_ccdc_ts(latest,landcover,'landcover',720,'nir',60)
 
-#Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the near infarred band ('nir') over a 720 day period 
-plot_ccdc_ts(latest,landcover,'landcover',720,'swir2',60)
+#Same plot as above, only showing quartiles
+plot_ccdc_ts_quartiles(latest,landcover,'landcover',720,'nir')
 
 #Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the shortwave infrared band 2 ('swir2') over a 720 day period 
 plot_ccdc_ts(latest,landcover,'landcover',720,'swir2',60)
