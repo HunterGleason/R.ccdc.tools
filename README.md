@@ -69,13 +69,13 @@ plot(latest,maxnl=1)
 plot(landcover,add=T,col=as.factor(landcover$landcover))
 
 #Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the near infarred band ('nir') over a 720 day period 
-plot_ccdc_ts(latest,landcover,'landcover',720,'nir',60)
+plot_ccdc_ts_bypoly(latest,landcover,'landcover',720,'nir',60)
 
 #Same plot as above, only showing quartiles
 plot_ccdc_ts_quartiles(latest,landcover,'landcover',720,'nir')
 
 #Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the shortwave infrared band 2 ('swir2') over a 720 day period 
-plot_ccdc_ts(latest,landcover,'landcover',720,'swir2',60)
+plot_ccdc_ts_bypoly(latest,landcover,'landcover',720,'swir2',60)
 
 ````
 
