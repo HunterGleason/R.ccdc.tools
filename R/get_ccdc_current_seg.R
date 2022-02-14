@@ -192,19 +192,19 @@ gen_ccdc_at_jdoy<-function(ccdc_img,jdoy)
   {
     for(coef in c("INTP","SLP","COS","SIN","COS2","SIN2","COS3","SIN3"))
     {
-      s1_names_select<-c(s1_names_select,paste0("S1_",b,"_coef_",coef),"S1_tStart","S1_tEnd")
-      s2_names_select<-c(s2_names_select,paste0("S2_",b,"_coef_",coef),"S2_tStart","S2_tEnd")
-      s3_names_select<-c(s3_names_select,paste0("S3_",b,"_coef_",coef),"S3_tStart","S3_tEnd")
-      s4_names_select<-c(s4_names_select,paste0("S4_",b,"_coef_",coef),"S4_tStart","S4_tEnd")
+      s1_names_select<-c(s1_names_select,paste0("S1_",b,"_coef_",coef))
+      s2_names_select<-c(s2_names_select,paste0("S2_",b,"_coef_",coef))
+      s3_names_select<-c(s3_names_select,paste0("S3_",b,"_coef_",coef))
+      s4_names_select<-c(s4_names_select,paste0("S4_",b,"_coef_",coef))
       names_final<-c(names_final,paste0(b,"_",coef))
     }
   }
   
   
-  ccdc_img<-rbind(as.matrix(ccdc_img[seg_idx==1,s1_names_select]),
-                  as.matrix(ccdc_img[seg_idx==2,s2_names_select]),
-                  as.matrix(ccdc_img[seg_idx==3,s3_names_select]),
-                  as.matrix(ccdc_img[seg_idx==4,s4_names_select]))
+  ccdc_img<-rbind(as.matrix(ccdc_img[seg_idx==1,c(s1_names_select,"S1_tStart","S1_tEnd")]),
+                  as.matrix(ccdc_img[seg_idx==2,c(s2_names_select,"S2_tStart","S2_tEnd")]),
+                  as.matrix(ccdc_img[seg_idx==3,c(s3_names_select,"S3_tStart","S3_tEnd")]),
+                  as.matrix(ccdc_img[seg_idx==4,c(s4_names_select,"S3_tStart","S3_tEnd")]))
   
   ccdc_img<-as.data.frame(ccdc_img)
   
