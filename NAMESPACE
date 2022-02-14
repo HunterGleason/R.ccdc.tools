@@ -2,6 +2,7 @@
 
 export("%>%")
 export(ccdc_func)
+export(gen_ccdc_at_jdoy)
 export(gen_latest_ccdc_rast)
 export(get_ccdc_ts)
 export(get_latest_seg_coefs)
