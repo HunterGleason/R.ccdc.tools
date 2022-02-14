@@ -29,7 +29,7 @@ plot_ccdc_ts_bypoly<-function(ccdc_img,zone_poly,catg_col,days=730,band,N=60)
   
   zonal_vals <- zonal_vals %>%
     dplyr::group_by(type) %>% 
-    dplyr::slice_sample(n=N)
+    dplyr::slice_sample(n=N,replace = T)
   
   zonal_vals<-as.data.frame(zonal_vals)
   zonal_vals<-zonal_vals[complete.cases(zonal_vals),]

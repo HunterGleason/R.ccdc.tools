@@ -42,11 +42,11 @@ ts_green<-get_ccdc_ts(ccdc_img,x_coord,y_coord,epsg,'green',4)
 ts_nir<-get_ccdc_ts(ccdc_img,x_coord,y_coord,epsg,'nir',4)
 
 #Plot the time series 
-plot(ts_green[,'jdoy_vec'],ts_green[,'ts'],type='l',xlab='Julian Date',ylab='Green Band Surface Reflectance')
-plot(ts_nir[,'jdoy_vec'],ts_nir[,'ts'],type='l',xlab='Julian Date',ylab='NIR Band Surface Reflectance')
+plot(jday_to_date(ts_green[,'jdoy_vec']),ts_green[,'ts'],type='l',xlab='Julian Date',ylab='Green Band Surface Reflectance')
+plot(jday_to_date(ts_nir[,'jdoy_vec']),ts_nir[,'ts'],type='l',xlab='Julian Date',ylab='NIR Band Surface Reflectance')
 
-#Get a CCDC image with coeffecents for latest segments (present day landscape conditions)
-latest<-gen_latest_ccdc_rast(ccdc_img,4)
+#Get a CCDC image with coeffecents for segments occuring during July 15, 2021 (i.e., near present day landscape conditions)
+latest<-gen_ccdc_at_jdoy(ccdc_img,as.Date('2021-07-15'))
 plot(latest)
 
 #Load a example catagorical layer (e.g., landcover polygons)
@@ -76,6 +76,9 @@ plot_ccdc_ts_quartiles(latest,landcover,'landcover',720,'nir')
 
 #Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the shortwave infrared band 2 ('swir2') over a 720 day period 
 plot_ccdc_ts_bypoly(latest,landcover,'landcover',720,'swir2',60)
+
+#Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the shortwave infrared band 2 ('swir2') over a 720 day period 
+plot_ccdc_ts_quartiles(latest,landcover,'landcover',720,'swir2')
 
 ````
 

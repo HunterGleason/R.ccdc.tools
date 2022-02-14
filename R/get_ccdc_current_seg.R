@@ -104,3 +104,14 @@ date_to_jday<-function(date)
 {
   as.numeric(as.Date(date)-as.Date('0000-01-01'))
 }
+
+
+#' Simple function for converting a Julian date to Date.
+#'
+#' @param jday (integer) Julian date to convert to Date.
+#' @return (Date) A Date corresponding to provided Julian date at UTC. 
+#' @export
+jday_to_date<-function(jday)
+{
+  as.Date(jday,origin = '0000-01-01 00:00:00 UTC')
+}
