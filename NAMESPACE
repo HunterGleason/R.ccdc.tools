@@ -2,6 +2,7 @@
 
 export("%>%")
 export(ccdc_func)
+export(date_to_jday)
 export(gen_ccdc_at_jdoy)
 export(get_ccdc_ts)
 export(plot_ccdc_ts_bypoly)

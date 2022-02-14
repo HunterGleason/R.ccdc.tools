@@ -6,17 +6,21 @@
 #' for the that segment. !!Assumes that up to four segments may exist (see Earth Engine script)!!
 #'
 #' @param ccdc_img (SpatRaster, stars) The CCDC image for which to extract coefficients.
-#' @param jdoy (integer) Julian date for which to extract CCDC coefficients. 
+#' @param date (Date) Date for which to extract CCDC coefficients (must be later then March 1 1984, and earlier than present date). 
 #' @return (SpatRaster) A SpatRaster with all CCDC coefficients (and tStart,tEnd) associated with the segment corresponding with the
-#' specified Julian date. 
+#' specified Julian date. If the date is very recent, some data may be missing.  
 #' @export
-gen_ccdc_at_jdoy<-function(ccdc_img,jdoy)
+gen_ccdc_at_jdoy<-function(ccdc_img,date)
 {
+  
+  jdoy<-date_to_jday(date)
   
   if(class(ccdc_img)=="stars")
   {
     ccdc_img<-terra::rast(ccdc_img)
   }
+  
+  orig_crs<-crs(ccdc_img)
   
   ccdc_img<-terra::as.data.frame(ccdc_img,xy=T)
   
@@ -77,7 +81,7 @@ gen_ccdc_at_jdoy<-function(ccdc_img,jdoy)
   ccdc_img<-rbind(as.matrix(ccdc_img[seg_idx==1,c(s1_names_select,"S1_tStart","S1_tEnd")]),
                   as.matrix(ccdc_img[seg_idx==2,c(s2_names_select,"S2_tStart","S2_tEnd")]),
                   as.matrix(ccdc_img[seg_idx==3,c(s3_names_select,"S3_tStart","S3_tEnd")]),
-                  as.matrix(ccdc_img[seg_idx==4,c(s4_names_select,"S3_tStart","S3_tEnd")]))
+                  as.matrix(ccdc_img[seg_idx==4,c(s4_names_select,"S4_tStart","S4_tEnd")]))
   
   ccdc_img<-as.data.frame(ccdc_img)
   
@@ -85,5 +89,18 @@ gen_ccdc_at_jdoy<-function(ccdc_img,jdoy)
   
   ccdc_img<-terra::rast(ccdc_img,type="xyz")
   
+  crs(ccdc_img)<-orig_crs
+  
   return(ccdc_img)
+}
+
+
+#' Simple function for converting a Date object to Julian date.
+#'
+#' @param date (Date) A R Date object to convert to Julian date.
+#' @return (integer) A integer representing the Julian date (i.e., days since '0000-01-01')
+#' @export
+date_to_jday<-function(date)
+{
+  as.numeric(as.Date(date)-as.Date('0000-01-01'))
 }
