@@ -20,7 +20,7 @@ plot_ccdc_by_catg(
 \item{catg_field}{(character) Name of the column indicating the categories of interest.}
 
 \item{band}{(character) The name of the band for which to forecast CCDC surface reflectance time series. One of 'blue', 'green', 'red'
-'nir', 'swir1' or 'swir2'.}
+'nir', 'swir1','swir2' or 'therm'.}
 
 \item{days}{(integer) Number of days to predict surface reflectance from the CCDC image data ('ccdc_img_date').}
 }

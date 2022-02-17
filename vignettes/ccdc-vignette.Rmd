@@ -1,5 +1,5 @@
 ---
-title: "ccdc-vignette"
+title: "R.ccdc.tools-vignette"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{ccdc-vignette}
@@ -72,18 +72,18 @@ plot(jday_to_date(ts_nir[,'jdoy_vec']),ts_nir[,'ts'],type='l',xlab='Date',ylab='
 
 ## Generate CCDC image with coeffcients that correspond to specfic date only
 
-It can be useful to generate raster with only the [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients that correspond to specific point in time. This is accomplished with the *R.ccdc.tools::gen_ccdc_at_jdoy* function, which returns a raster with all [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients but only for the segments that occur during the provided date (within the CCDC time-series, typically 1984~present day). For example, below we generate a derived CCDC image that contains all the [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients but derived form only the segments that occur during July 15, 2021, as such, we see that the bands no longer have a segment identifier associated with them. This output can be used for comparing seasonal surface reflectance curves, or as input into any classification or regression model. Notice that the start Julian date and end Julian date of the corresponding segment is also included as additional bands.   
+It can be useful to generate raster with only the [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients that correspond to specific point in time. This is accomplished with the *R.ccdc.tools::gen_ccdc_at_jdoy* function, which returns a raster with all [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients but only for the segments that occur during the provided date (within the CCDC time-series, typically 1984~present day). For example, below we generate a derived CCDC image that contains all the [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients but derived form only the segments that occur during July 15, 2021, as such, we see that the bands no longer have a segment identifier associated with them. We use July 15, 2021 because it represent near present landscape conditions when this document was written. This output can be used for comparing seasonal surface reflectance curves, or as input into any classification or regression model. Notice that the start Julian date and end Julian date of the corresponding segment is also included as additional bands.   
 
 ```{r fig.width=6, fig.height=6}
 #Get a CCDC image with coefficients for segments occurring during July 15, 2021 (i.e., near present day landscape conditions)
-latest<-gen_ccdc_at_jdoy(ccdc_img,as.Date('2021-07-15'))
-plot(latest)
-head(latest)
+jul_15_2021<-gen_ccdc_at_jdoy(ccdc_img,"2021-07-15")
+plot(jul_15_2021)
+head(jul_15_2021)
 ```
 
 ## Assemble a category layer
 
-Below we load in some example landcover polygons for use in later functions, these are simple landcover types created from visual inspection of high resolution imagery, wetland polygons are derived using the [**bcdata**](https://github.com/bcgov/bcdata) package. 
+As a very simple example below we load in basic landcover polygons for use in later functions, these are simple landcover types created from visual inspection of high resolution imagery, wetland polygons are derived using the [**bcdata**](https://github.com/bcgov/bcdata) package. 
 
 ```{r fig.width=6, fig.height=6}
 #Load a example categorical layer (e.g., landcover polygons)
@@ -92,7 +92,7 @@ landcover <- vect(landcover)
 
 #Get freshwater wetlands within AOI, merge with landcover layer 
 wetlands<-bcdc_query_geodata('93b413d8-1840-4770-9629-641d74bd1cc6') %>%
-  filter(INTERSECTS(st_bbox(st_as_stars(latest)))) %>%
+  filter(INTERSECTS(st_bbox(st_as_stars(jul_15_2021)))) %>%
   collect()
 
 #Simplify layer 
@@ -106,5 +106,31 @@ landcover <- rbind(landcover,vect(wetlands))
 ggplot()+
   geom_sf(data=st_as_sf(landcover),aes(color=landcover))+
   coord_sf(datum=st_crs(epsg))
+
+```
+
+## Comparing seasonal surface reflectance curves by landcover category 
+
+One of the neat aspects of the [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) is it can be used to visually compare intra-annual surface reflectance for different landcover types, using the *jul_15_2021* raster as input, the code bellow illustrate the application of several *R.ccdc.tools* functions that make creating such plots very simple. The function *R.ccdc.tools::plot_ccdc_ts_bypoly* selects random sample locations of specified N within each polygon category, and for each sample plots the synthetic surface reflectance from the date of the input image up to any number of days, typically one or two years. The function *R.ccdc.tools::plot_ccdc_ts_quartiles* is very similar, but uses all available pixels and plots the daily 25, 50 and 75th percentile for each category instead of each individual time series, which is illustrated below for the near-infrared and shortwave-infrared 2 Landsat bands.      
+
+```{r fig.width=6, fig.height=6}
+#Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the near-infrared band ('nir') over a 730 day period 
+plot_ccdc_ts_bypoly(jul_15_2021,landcover,'landcover',730,'nir',60)
+
+#Same plot as above, only showing quartiles
+plot_ccdc_ts_quartiles(jul_15_2021,landcover,'landcover',730,'nir')
+
+#Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the shortwave infrared band 2 ('swir2') over a 720 day period 
+plot_ccdc_ts_bypoly(jul_15_2021,landcover,'landcover',730,'swir2',60)
+
+#Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the shortwave infrared band 2 ('swir2') over a 720 day period 
+plot_ccdc_ts_quartiles(jul_15_2021,landcover,'landcover',730,'swir2')
+```
+
+## Comparing seasonal surface reflectance curves by landcover category (large areas of interest)
+
+Often the size of the exported [**GEE-Script**](https://code.earthengine.google.com/054860fe5914f0851080b26da27b1120)) raster can be quite large, and many polygons may be used for exploring intra-annual surface reflectance between categories. The *R.ccdc.tools::sample_ccdc_by_catg* function achieves essentially the same result as *R.ccdc.tools::plot_ccdc_ts_quartiles* (but uses a sample like plot_ccdc_ts_bypoly), but uses [**SAGA-GIS**](https://saga-gis.sourceforge.io/en/index.html) with [**RSAGA**](https://cran.r-project.org/web/packages/RSAGA/index.html) for more efficient computation and demand on memory resources. It also returns the computed surface reflectance data back as a data.frame. Its use is shown in the code below.
+
+```{r fig.width=6, fig.height=6}
 
 ```

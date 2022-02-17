@@ -6,15 +6,16 @@
 #'
 #' @param ccdc_img  (SpatRaster,stars) The CCDC image for which to extract coefficients, for one segment only, 
 #' such as the output from 'gen_latest_ccdc_rast'.
+#' @param ccdc_img_date (character) A representation of the CCDC image date that can be interpreted by as.Date()
 #' @param zone_poly (SpatVector,sf) Polygons for which to plot CCDC time series sample, by category. 
 #' @param catg_col (Character) The name of the column that defines the category of each polygon. 
 #' @param days The number of days for which to plot the CCDC time series, defaults to 730 (2 years)
 #' @param band band (character) The name of the band for which to extract CCDC coefficients. One of 'blue', 'green', 'red'
-#' 'nir', 'swir1' or 'swir2'.
+#' 'nir', 'swir1','swir2' or 'therm'.
 #' @param N The number of pixels to sample (and plot) for each category. 
 #' @return (void) Plots the CCDC time series for a sample of pixels stratified by polygon category. 
 #' @export
-plot_ccdc_ts_bypoly<-function(ccdc_img,zone_poly,catg_col,days=730,band,N=60)
+plot_ccdc_ts_bypoly<-function(ccdc_img,ccdc_img_date,zone_poly,catg_col,days=730,band,N=60)
 {
   
   if(class(ccdc_img)=='stars')
@@ -49,7 +50,10 @@ plot_ccdc_ts_bypoly<-function(ccdc_img,zone_poly,catg_col,days=730,band,N=60)
   cos3<-paste0(band,"_COS3")
   sin3<-paste0(band,"_SIN3")
   
-  plot(ccdc_func(c(zonal_vals$tStart[i]:(zonal_vals$tStart[i]+days)),
+  ccdc_img_date<-date_to_jday(ccdc_img_date)
+  ts_x<-c(ccdc_img_date:(ccdc_img_date + days))
+  
+  plot(jday_to_date(ts_x),ccdc_func(c(zonal_vals$tStart[i]:(zonal_vals$tStart[i]+days)),
                  zonal_vals[i,intp],
                  zonal_vals[i,slp],
                  zonal_vals[i,cos],
@@ -58,16 +62,15 @@ plot_ccdc_ts_bypoly<-function(ccdc_img,zone_poly,catg_col,days=730,band,N=60)
                  zonal_vals[i,sin2],
                  zonal_vals[i,cos3],
                  zonal_vals[i,sin3]),
-       xlim=c(1,days),
        ylim=c(0,1.0),
        type='l',
        col=zonal_vals$type_int[i],
-       xlab="Julian Day",
-       ylab=paste0(band," Surface Refletance"))
+       xlab="Date",
+       ylab=paste0(band," Surface Reflectance"))
   
   for(i in c(2:nrow(zonal_vals)))
   {
-    lines(ccdc_func(c(zonal_vals$tStart[i]:(zonal_vals$tStart[i]+days)),
+    lines(jday_to_date(ts_x),ccdc_func(c(zonal_vals$tStart[i]:(zonal_vals$tStart[i]+days)),
                     zonal_vals[i,intp],
                     zonal_vals[i,slp],
                     zonal_vals[i,cos],
@@ -93,19 +96,22 @@ plot_ccdc_ts_bypoly<-function(ccdc_img,zone_poly,catg_col,days=730,band,N=60)
 #'
 #' @param ccdc_img  (SpatRaster,stars) The CCDC image for which to extract coefficients, for one segment only, 
 #' such as the output from 'gen_latest_ccdc_rast'.
+#' @param ccdc_img_date (character) A representation of the CCDC image date that can be interpreted by as.Date()
 #' @param zone_poly (SpatVector) Polygons for which to plot CCDC time series sample, by category. 
 #' @param catg_col (Character) The name of the column that defines the category of each polygon. 
 #' @param days The number of days for which to plot the CCDC time series, defaults to 730 (2 years)
 #' @param band band (character) The name of the band for which to extract CCDC coefficients. One of 'blue', 'green', 'red'
-#' 'nir', 'swir1' or 'swir2'.
+#' 'nir', 'swir1','swir2' or 'therm'.
 #' @param N The number of pixels to sample (and plot) for each category. 
 #' @return (void) Plots the CCDC time series quartiles (i.e., 25, 50 & 75th percentiles) stratified by polygon category. 
 #' @export
-plot_ccdc_ts_quartiles<-function (ccdc_img, zone_poly, catg_col, days = 730, band) 
+plot_ccdc_ts_quartiles<-function (ccdc_img,ccdc_img_date,zone_poly, catg_col, days = 730, band) 
 {
   if (class(ccdc_img) == "stars") {
     ccdc_img <- terra::rast(ccdc_img)
   }
+  
+  ccdc_img_date<-date_to_jday(ccdc_img_date)
   
   zonal_vals <- terra::extract(ccdc_img, zone_poly)
   zonal_vals$type <- as.factor(as.data.frame(zone_poly)[, catg_col][zonal_vals$ID])
@@ -123,7 +129,7 @@ plot_ccdc_ts_quartiles<-function (ccdc_img, zone_poly, catg_col, days = 730, ban
   
   tStartMin<-summary(zonal_vals$tStart)[1]
   
-  ts_x<-c(tStartMin:(tStartMin + days))
+  ts_x<-c(ccdc_img_date:(ccdc_img_date + days))
   
   ts<-c(ccdc_func(ts_x,
                   zonal_vals[i, intp],
@@ -136,7 +142,7 @@ plot_ccdc_ts_quartiles<-function (ccdc_img, zone_poly, catg_col, days = 730, ban
                   zonal_vals[i, sin3]),zonal_vals$type[i])
   
   for (i in c(2:nrow(zonal_vals))) {
-    ts<-rbind(ts,c(ccdc_func(ts_x,
+    ts<-rbind(ts,c(ccdc_func(jday_to_date(ts_x),
                              zonal_vals[i, intp],
                              zonal_vals[i, slp],
                              zonal_vals[i, cos],
@@ -160,7 +166,7 @@ plot_ccdc_ts_quartiles<-function (ccdc_img, zone_poly, catg_col, days = 730, ban
   {
     if(firstplot==T)
     {
-      plot(ts_x,med[med[,1]==j,c(3:ncol(med)-1)],type='l',col=j,ylim=c(0,1),xlab="Julian DOY",ylab=paste0(band," Surface Reflectance"))
+      plot(ts_x,med[med[,1]==j,c(3:ncol(med)-1)],type='l',col=j,ylim=c(0,1),xlab="Date",ylab=paste0(band," Surface Reflectance"))
       firstplot=F
     }else{
       lines(ts_x,med[med[,1]==j,c(3:ncol(med)-1)],type='l',col=j)
@@ -296,7 +302,7 @@ sample_ccdc_by_catg<-function(polygons_pth,ccdc_img_pth,pnts_count,sep_dist,env)
 #' @param ccdc_img_date (character) A representation of the CCDC image date that can be interpreted by as.Date()
 #' @param catg_field (character) Name of the column indicating the categories of interest. 
 #' @param band (character) The name of the band for which to forecast CCDC surface reflectance time series. One of 'blue', 'green', 'red'
-#' 'nir', 'swir1' or 'swir2'.
+#' 'nir', 'swir1','swir2' or 'therm'.
 #' @param days (integer) Number of days to predict surface reflectance from the CCDC image data ('ccdc_img_date'). 
 #' @return (List) A data.frame with all data used for plot generation ('srdata'), a 'ggplot' object ('srplot'), and a data.frame with the legend codes cross-walk ('crosswalk'). 
 #' @export

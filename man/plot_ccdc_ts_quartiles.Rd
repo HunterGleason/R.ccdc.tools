@@ -4,11 +4,20 @@
 \alias{plot_ccdc_ts_quartiles}
 \title{Plot CCDC  (Zhu & Woodcock 2014) time series quartiles by polygon.}
 \usage{
-plot_ccdc_ts_quartiles(ccdc_img, zone_poly, catg_col, days = 730, band)
+plot_ccdc_ts_quartiles(
+  ccdc_img,
+  ccdc_img_date,
+  zone_poly,
+  catg_col,
+  days = 730,
+  band
+)
 }
 \arguments{
 \item{ccdc_img}{(SpatRaster,stars) The CCDC image for which to extract coefficients, for one segment only,
 such as the output from 'gen_latest_ccdc_rast'.}
+
+\item{ccdc_img_date}{(character) A representation of the CCDC image date that can be interpreted by as.Date()}
 
 \item{zone_poly}{(SpatVector) Polygons for which to plot CCDC time series sample, by category.}
 
@@ -17,7 +26,7 @@ such as the output from 'gen_latest_ccdc_rast'.}
 \item{days}{The number of days for which to plot the CCDC time series, defaults to 730 (2 years)}
 
 \item{band}{band (character) The name of the band for which to extract CCDC coefficients. One of 'blue', 'green', 'red'
-'nir', 'swir1' or 'swir2'.}
+'nir', 'swir1','swir2' or 'therm'.}
 
 \item{N}{The number of pixels to sample (and plot) for each category.}
 }
