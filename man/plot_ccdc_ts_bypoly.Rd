@@ -10,7 +10,7 @@ plot_ccdc_ts_bypoly(ccdc_img, zone_poly, catg_col, days = 730, band, N = 60)
 \item{ccdc_img}{(SpatRaster,stars) The CCDC image for which to extract coefficients, for one segment only,
 such as the output from 'gen_latest_ccdc_rast'.}
 
-\item{zone_poly}{(SpatVector) Polygons for which to plot CCDC time series sample, by category.}
+\item{zone_poly}{(SpatVector,sf) Polygons for which to plot CCDC time series sample, by category.}
 
 \item{catg_col}{(Character) The name of the column that defines the category of each polygon.}
 
