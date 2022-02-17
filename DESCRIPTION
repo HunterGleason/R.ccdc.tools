@@ -17,3 +17,7 @@ Depends:
 LazyData: true
 Imports: 
     magrittr
+Suggests: 
+    rmarkdown,
+    knitr
+VignetteBuilder: knitr

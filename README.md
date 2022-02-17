@@ -16,9 +16,11 @@ library(stars)
 library(sf)
 library(terra)
 library(bcdata)
+library(RSAGA)
 
 #Read in a CDCC image example data (see https://github.com/parevalo/gee-ccdc-tools) as a stars object
 ccdc_img = exampleData
+
 
 #Example coordinates (EPSG:3005) within the image bounds
 x_coord<-1794708.42
@@ -49,6 +51,8 @@ plot(jday_to_date(ts_nir[,'jdoy_vec']),ts_nir[,'ts'],type='l',xlab='Julian Date'
 latest<-gen_ccdc_at_jdoy(ccdc_img,as.Date('2021-07-15'))
 plot(latest)
 
+writeRaster(latest,file.path(tempdir(),"latest.tif"))
+
 #Load a example catagorical layer (e.g., landcover polygons)
 landcover <- landcover
 landcover <- vect(landcover)
@@ -64,15 +68,24 @@ wetlands$landcover<-'Wetland'
 
 landcover <- rbind(landcover,vect(wetlands)) 
 
+writeVector(landcover,file.path(tempdir(),"landcover.shp"))
+
 #Plot layers
 plot(latest,maxnl=1)
 plot(landcover,add=T,col=as.factor(landcover$landcover))
 
-#Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the near infarred band ('nir') over a 720 day period 
-plot_ccdc_ts_bypoly(latest,landcover,'landcover',720,'nir',60)
+#Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the near infarred band ('nir') over a 730 day period 
+plot_ccdc_ts_bypoly(latest,landcover,'landcover',730,'nir',60)
 
 #Same plot as above, only showing quartiles
-plot_ccdc_ts_quartiles(latest,landcover,'landcover',720,'nir')
+plot_ccdc_ts_quartiles(latest,landcover,'landcover',730,'nir')
+
+#Same plot as above, but uses RSAGA for sampling CCDC coeffcents (latest), useful for large areas of interest with lots of polygons.  
+sampled<-sample_ccdc_by_catg(file.path(tempdir(),"landcover.shp"),file.path(tempdir(),"latest.tif"),300,50,rsaga.env())
+head(sampled)
+
+sampled_ts<-plot_ccdc_by_catg(sampled,"2021-07-15","landcover","nir")
+sampled_ts
 
 #Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the shortwave infrared band 2 ('swir2') over a 720 day period 
 plot_ccdc_ts_bypoly(latest,landcover,'landcover',720,'swir2',60)

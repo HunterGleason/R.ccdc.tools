@@ -21,7 +21,7 @@ plot_ccdc_ts_bypoly<-function(ccdc_img,zone_poly,catg_col,days=730,band,N=60)
   {
     ccdc_img<-terra::rast(ccdc_img)
   }
-  if(any(class(zone_poly))=='sf')
+  if(any(class(zone_poly)=='sf'))
   {
     zone_poly<-terra::vect(zone_poly)
   }
@@ -265,10 +265,18 @@ sample_ccdc_by_catg<-function(polygons_pth,ccdc_img_pth,pnts_count,sep_dist,env)
                 "swir2_SIN2",
                 "swir2_COS3",
                 "swir2_SIN3",
+                "therm_INTP",
+                "therm_SLP",
+                "therm_COS",
+                "therm_SIN",
+                "therm_COS2",
+                "therm_SIN2",
+                "therm_COS3",
+                "therm_SIN3",
                 "tStart",
                 "tEnd") 
   
-  colnames(ccdc_img_at_pnts)[c(offset:53)]<-band_names
+  colnames(ccdc_img_at_pnts)[c(offset:61)]<-band_names
   
   
   ccdc_img_at_pnts<-as.data.frame(ccdc_img_at_pnts)

@@ -1,0 +1,110 @@
+---
+title: "ccdc-vignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ccdc-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+This vignette provides a brief tour of the functionality of th *R.ccdc.tools* package. An important thing to note, this package was designed to work in conjunction with the output raster layers of the *Google Earth Engine tools for CCDC* API [**CCDC API**](https://github.com/parevalo/gee-ccdc-tools/blob/master/docs/index.rst). [**CCDC API**](https://github.com/parevalo/gee-ccdc-tools/blob/master/docs/index.rst) leverages [**Google Earth Engine**](https://earthengine.google.com/) to apply the *Continuous Change Detection and Classification* methods of Zhu & Woodcock, 2014 [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011). A Google Earth Engine script [**GEE-Script**](https://code.earthengine.google.com/054860fe5914f0851080b26da27b1120) is provided to generate these outputs, which may then be downloaded locally and used with the package provided here, which simply offers functions for generating derived images and time series plots based on the CCDC coefficient output raster of [**GEE-Script**](https://code.earthengine.google.com/054860fe5914f0851080b26da27b1120). This package has been tested **only** with these outputs.  
+
+
+## Imports
+
+```{r setup}
+library(R.ccdc.tools)
+library(sf)
+library(stars)
+library(terra)
+library(bcdata)
+library(ggplot2)
+```
+
+## Load example CCDC output from package data, explore data
+
+Below we load in the raw output CCDC image (i.e.,[**GEE-Script**](https://code.earthengine.google.com/054860fe5914f0851080b26da27b1120)) for a small area of interest. This CCDC raster contains the  [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients for each segment, in this case up to 4 segments were exported using the [**CCDC API**](https://github.com/parevalo/gee-ccdc-tools/blob/master/docs/index.rst). The Landsat blue, green, red, near-infrared, shortwave-infrared 1, shortwave-infrared 2 and thermal band coefficients are included as *blue,green,red,nir,swir1,swir2 and therm*. In the code below we define a random point within the AOI, and extract the [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) raster values at that location to illustrate what attributes are present in the raw output of [**GEE-Script**](https://code.earthengine.google.com/054860fe5914f0851080b26da27b1120). For instance, *S1_green_coef_INTP* is the green band intercept coefficient for the first segment in the surface reflectance time series at the XY location 1794708, 611511. Notice additional attributes related to change detection and segments are also present in the raster data.  
+
+```{r}
+ccdc_img = exampleData
+
+#Arbitrary example coordinates (EPSG:3005) within the image bounds
+x_coord<-1794708.42
+y_coord<-611511.36
+epsg<-3005
+
+#Extract the model coefficients at the point from the CCDC image
+DF <- data.frame(x = c(x_coord), y = c(y_coord))
+DF_sf = st_as_sf(DF, coords = c("x", "y"), 
+                 crs = st_crs(epsg), agr = "constant")
+extracted <- st_as_sf(st_extract(ccdc_img, DF_sf))
+
+#View the coefficients for each segment, these are used in 'get_ccdc_ts' to generate the time series data
+ccdc_coefs <- as.data.frame(extracted)
+head(ccdc_coefs)
+
+```
+
+## Plot synthetic surface reflectance at a pixel location
+
+Below we use *R.ccdc.tools::get_ccdc_ts* to use the [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients to generate the synthetic surface reflectance time series at the pixel that intersects the coordinates above for the green and nir bands. Any XY coordinate that intersect the raster data can be specified, for any band exported in the CCDC raster. Notice that around ~2018 a noticeable break in both time series in evident, suggesting some type of landscape disturbance likely occurred then.
+
+```{r fig.width=6, fig.height=6}
+#Get the green surface reflectance time series (ts) for up to 4-segments at the point.
+ts_green<-get_ccdc_ts(ccdc_img,x_coord,y_coord,epsg,'green',4)
+
+#Get the near-infrared (nir) surface reflectance time series (ts) for up to 4-segments at the point.
+ts_nir<-get_ccdc_ts(ccdc_img,x_coord,y_coord,epsg,'nir',4)
+
+#Plot the time series 
+plot(jday_to_date(ts_green[,'jdoy_vec']),ts_green[,'ts'],type='l',xlab='Date',ylab='Green Band Surface Reflectance')
+plot(jday_to_date(ts_nir[,'jdoy_vec']),ts_nir[,'ts'],type='l',xlab='Date',ylab='NIR Band Surface Reflectance')
+```
+
+## Generate CCDC image with coeffcients that correspond to specfic date only
+
+It can be useful to generate raster with only the [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients that correspond to specific point in time. This is accomplished with the *R.ccdc.tools::gen_ccdc_at_jdoy* function, which returns a raster with all [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients but only for the segments that occur during the provided date (within the CCDC time-series, typically 1984~present day). For example, below we generate a derived CCDC image that contains all the [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients but derived form only the segments that occur during July 15, 2021, as such, we see that the bands no longer have a segment identifier associated with them. This output can be used for comparing seasonal surface reflectance curves, or as input into any classification or regression model. Notice that the start Julian date and end Julian date of the corresponding segment is also included as additional bands.   
+
+```{r fig.width=6, fig.height=6}
+#Get a CCDC image with coefficients for segments occurring during July 15, 2021 (i.e., near present day landscape conditions)
+latest<-gen_ccdc_at_jdoy(ccdc_img,as.Date('2021-07-15'))
+plot(latest)
+head(latest)
+```
+
+## Assemble a category layer
+
+Below we load in some example landcover polygons for use in later functions, these are simple landcover types created from visual inspection of high resolution imagery, wetland polygons are derived using the [**bcdata**](https://github.com/bcgov/bcdata) package. 
+
+```{r fig.width=6, fig.height=6}
+#Load a example categorical layer (e.g., landcover polygons)
+landcover <- landcover
+landcover <- vect(landcover)
+
+#Get freshwater wetlands within AOI, merge with landcover layer 
+wetlands<-bcdc_query_geodata('93b413d8-1840-4770-9629-641d74bd1cc6') %>%
+  filter(INTERSECTS(st_bbox(st_as_stars(latest)))) %>%
+  collect()
+
+#Simplify layer 
+wetlands<-wetlands[,'id']
+wetlands$landcover<-'Wetland'
+
+#Merge wetlands with landcover
+landcover <- rbind(landcover,vect(wetlands)) 
+
+#Plot category layer
+ggplot()+
+  geom_sf(data=st_as_sf(landcover),aes(color=landcover))+
+  coord_sf(datum=st_crs(epsg))
+
+```

@@ -65,7 +65,7 @@ gen_ccdc_at_jdoy<-function(ccdc_img,date)
   s4_names_select<-c("x","y")
   names_final<-c("x","y")
   
-  for(b in c("blue","green","red","nir","swir1","swir2"))
+  for(b in c("blue","green","red","nir","swir1","swir2","therm"))
   {
     for(coef in c("INTP","SLP","COS","SIN","COS2","SIN2","COS3","SIN3"))
     {
