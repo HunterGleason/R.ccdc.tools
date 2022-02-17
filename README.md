@@ -75,10 +75,10 @@ plot(latest,maxnl=1)
 plot(landcover,add=T,col=as.factor(landcover$landcover))
 
 #Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the near infarred band ('nir') over a 730 day period 
-plot_ccdc_ts_bypoly(latest,landcover,'landcover',730,'nir',60)
+plot_ccdc_ts_bypoly(latest,"2021-07-15",landcover,'landcover',730,'nir',60)
 
 #Same plot as above, only showing quartiles
-plot_ccdc_ts_quartiles(latest,landcover,'landcover',730,'nir')
+plot_ccdc_ts_quartiles(latest,"2021-07-15",landcover,'landcover',730,'nir')
 
 #Same plot as above, but uses RSAGA for sampling CCDC coeffcents (latest), useful for large areas of interest with lots of polygons.  
 sampled<-sample_ccdc_by_catg(file.path(tempdir(),"landcover.shp"),file.path(tempdir(),"latest.tif"),300,50,rsaga.env())

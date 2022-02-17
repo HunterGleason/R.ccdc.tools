@@ -53,7 +53,7 @@ plot_ccdc_ts_bypoly<-function(ccdc_img,ccdc_img_date,zone_poly,catg_col,days=730
   ccdc_img_date<-date_to_jday(ccdc_img_date)
   ts_x<-c(ccdc_img_date:(ccdc_img_date + days))
   
-  plot(jday_to_date(ts_x),ccdc_func(c(zonal_vals$tStart[i]:(zonal_vals$tStart[i]+days)),
+  plot(jday_to_date(ts_x),ccdc_func(ts_x,
                  zonal_vals[i,intp],
                  zonal_vals[i,slp],
                  zonal_vals[i,cos],
@@ -70,7 +70,7 @@ plot_ccdc_ts_bypoly<-function(ccdc_img,ccdc_img_date,zone_poly,catg_col,days=730
   
   for(i in c(2:nrow(zonal_vals)))
   {
-    lines(jday_to_date(ts_x),ccdc_func(c(zonal_vals$tStart[i]:(zonal_vals$tStart[i]+days)),
+    lines(jday_to_date(ts_x),ccdc_func(ts_x,
                     zonal_vals[i,intp],
                     zonal_vals[i,slp],
                     zonal_vals[i,cos],
@@ -142,7 +142,7 @@ plot_ccdc_ts_quartiles<-function (ccdc_img,ccdc_img_date,zone_poly, catg_col, da
                   zonal_vals[i, sin3]),zonal_vals$type[i])
   
   for (i in c(2:nrow(zonal_vals))) {
-    ts<-rbind(ts,c(ccdc_func(jday_to_date(ts_x),
+    ts<-rbind(ts,c(ccdc_func(ts_x,
                              zonal_vals[i, intp],
                              zonal_vals[i, slp],
                              zonal_vals[i, cos],
@@ -160,7 +160,7 @@ plot_ccdc_ts_quartiles<-function (ccdc_img,ccdc_img_date,zone_poly, catg_col, da
   p75<-aggregate(ts,by=list(ts[,ncol(ts)]),quantile,probs=c(.75))
   
   firstplot<-T
-  ts_x<-c(1:(days+1))
+  ts_x<-jday_to_date(ts_x)
   
   for(j in unique(ts[,ncol(ts)]))
   {

@@ -115,16 +115,16 @@ One of the neat aspects of the [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.
 
 ```{r fig.width=6, fig.height=6}
 #Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the near-infrared band ('nir') over a 730 day period 
-plot_ccdc_ts_bypoly(jul_15_2021,landcover,'landcover',730,'nir',60)
+plot_ccdc_ts_bypoly(jul_15_2021,"2021-07-15",landcover,'landcover',730,'nir',60)
 
 #Same plot as above, only showing quartiles
-plot_ccdc_ts_quartiles(jul_15_2021,landcover,'landcover',730,'nir')
+plot_ccdc_ts_quartiles(jul_15_2021,"2021-07-15",landcover,'landcover',730,'nir')
 
 #Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the shortwave infrared band 2 ('swir2') over a 720 day period 
-plot_ccdc_ts_bypoly(jul_15_2021,landcover,'landcover',730,'swir2',60)
+plot_ccdc_ts_bypoly(jul_15_2021,"2021-07-15",landcover,'landcover',730,'swir2',60)
 
 #Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the shortwave infrared band 2 ('swir2') over a 720 day period 
-plot_ccdc_ts_quartiles(jul_15_2021,landcover,'landcover',730,'swir2')
+plot_ccdc_ts_quartiles(jul_15_2021,"2021-07-15",landcover,'landcover',730,'swir2')
 ```
 
 ## Comparing seasonal surface reflectance curves by landcover category (large areas of interest)
