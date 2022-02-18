@@ -9,4 +9,4 @@ remotes::install_github('HunterGleason/R.ccdc.tools')
 
 # Example
 
-For a tutorial on the use of this package please see the vignette. 
+For a tutorial on the use of this package please see the [**vignette**](https://htmlpreview.github.io/?https://github.com/HunterGleason/R.ccdc.tools/blob/main/vignettes/ccdc-vignette.html). 
