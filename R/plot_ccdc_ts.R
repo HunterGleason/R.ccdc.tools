@@ -203,14 +203,21 @@ sample_ccdc_by_catg<-function(polygons_pth,ccdc_img_pth,pnts_count,sep_dist,env)
                             env=env)
   
   cat("Generating Random Points ...","\n")
-  RSAGA::rsaga.geoprocessor(lib='shapes_points',module=21,param = list(POINTS=file.path(tempdir(),"random_pnts"),
+  RSAGA::rsaga.geoprocessor(lib='shapes_points',
+                            module=21,
+                            param = list(POINTS=file.path(tempdir(),"random_pnts"),
                                                                        EXTENT=3,
                                                                        POLYGONS=file.path(tempdir(),'shapes.shp'),
                                                                        COUNT=pnts_count,
-                                                                       DISTANCE=sep_dist))
+                                                                       DISTANCE=sep_dist),
+                            env=env)
+  
   cat("Atributing Polygons to Points ...","\n")
-  RSAGA::rsaga.geoprocessor(lib='shapes_points',module=10,param = list(INPUT=file.path(tempdir(),"random_pnts.shp"),
-                                                                       POLYGONS=file.path(tempdir(),'shapes.shp')))
+  RSAGA::rsaga.geoprocessor(lib='shapes_points',
+                            module=10,
+                            param = list(INPUT=file.path(tempdir(),"random_pnts.shp"),
+                                         POLYGONS=file.path(tempdir(),'shapes.shp')),
+                            env=env)
   
   offset<-ncol(sf::read_sf(file.path(tempdir(),"random_pnts.shp")))
   
@@ -218,7 +225,8 @@ sample_ccdc_by_catg<-function(polygons_pth,ccdc_img_pth,pnts_count,sep_dist,env)
   RSAGA::rsaga.geoprocessor(lib='shapes_grid',module=0,param = list(SHAPES=file.path(tempdir(),"random_pnts.shp"),
                                                                     GRIDS=ccdc_img_pth,
                                                                     RESULT=file.path(tempdir(),"random_pnts.shp"),
-                                                                    RESAMPLING=0))
+                                                                    RESAMPLING=0),
+                            env=env)
   
   ccdc_img_at_pnts<-sf::read_sf(file.path(tempdir(),"random_pnts.shp"))
   

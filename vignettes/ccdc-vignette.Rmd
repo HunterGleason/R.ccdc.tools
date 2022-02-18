@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-This vignette provides a brief tour of the functionality of th *R.ccdc.tools* package. An important thing to note, this package was designed to work in conjunction with the output raster layers of the *Google Earth Engine tools for CCDC* API [**CCDC API**](https://github.com/parevalo/gee-ccdc-tools/blob/master/docs/index.rst). [**CCDC API**](https://github.com/parevalo/gee-ccdc-tools/blob/master/docs/index.rst) leverages [**Google Earth Engine**](https://earthengine.google.com/) to apply the *Continuous Change Detection and Classification* methods of Zhu & Woodcock, 2014 [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011). A Google Earth Engine script [**GEE-Script**](https://code.earthengine.google.com/054860fe5914f0851080b26da27b1120) is provided to generate these outputs, which may then be downloaded locally and used with the package provided here, which simply offers functions for generating derived images and time series plots based on the CCDC coefficient output raster of [**GEE-Script**](https://code.earthengine.google.com/054860fe5914f0851080b26da27b1120). This package has been tested **only** with these outputs.  
+This vignette provides a brief tour of the functionality of th *R.ccdc.tools* package. An important note, this package was designed to work in conjunction with the output raster layers of the *Google Earth Engine tools for CCDC* API [**CCDC API**](https://github.com/parevalo/gee-ccdc-tools/blob/master/docs/index.rst). [**CCDC API**](https://github.com/parevalo/gee-ccdc-tools/blob/master/docs/index.rst) leverages [**Google Earth Engine**](https://earthengine.google.com/) to apply the *Continuous Change Detection and Classification* methods of Zhu & Woodcock, 2014 [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011). A Google Earth Engine script [**GEE-Script**](https://code.earthengine.google.com/054860fe5914f0851080b26da27b1120) is provided to generate these outputs, which may then be downloaded locally and used with the package provided here, which simply offers functions for generating derived images and time series plots based on the CCDC coefficient output raster of [**GEE-Script**](https://code.earthengine.google.com/054860fe5914f0851080b26da27b1120). This package has been tested **only** with these outputs.  
 
 
 ## Imports
@@ -28,6 +28,7 @@ library(stars)
 library(terra)
 library(bcdata)
 library(ggplot2)
+library(RSAGA)
 ```
 
 ## Load example CCDC output from package data, explore data
@@ -72,7 +73,7 @@ plot(jday_to_date(ts_nir[,'jdoy_vec']),ts_nir[,'ts'],type='l',xlab='Date',ylab='
 
 ## Generate CCDC image with coeffcients that correspond to specfic date only
 
-It can be useful to generate raster with only the [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients that correspond to specific point in time. This is accomplished with the *R.ccdc.tools::gen_ccdc_at_jdoy* function, which returns a raster with all [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients but only for the segments that occur during the provided date (within the CCDC time-series, typically 1984~present day). For example, below we generate a derived CCDC image that contains all the [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients but derived form only the segments that occur during July 15, 2021, as such, we see that the bands no longer have a segment identifier associated with them. We use July 15, 2021 because it represent near present landscape conditions when this document was written. This output can be used for comparing seasonal surface reflectance curves, or as input into any classification or regression model. Notice that the start Julian date and end Julian date of the corresponding segment is also included as additional bands.   
+It can be useful to generate raster with only the [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients that correspond to specific point in time. This is accomplished with the *R.ccdc.tools::gen_ccdc_at_jdoy* function, which returns a raster with all [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients but only for the segments that occur during the provided date (within the CCDC time-series, typically 1984~present day). For example, below we generate a derived CCDC image that contains all the [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients but derived form only the segments that occur during July 15, 2021, as such, we see that the bands no longer have a segment identifier associated with them. We use July 15, 2021 because it represent near present landscape conditions when this document was written. This output can be used for comparing seasonal surface reflectance curves, or as input into any classification or regression model. Notice that the start Julian date and end Julian date of the corresponding segment is also included as additional bands. Note for large CCDC rasters this function may be slow and memory intensive, if this is case (not shown here) it is recommended to create tiles (i.e., *st_tile*) from the CCDC imagery and process the tiles using *R.ccdc.tools::gen_ccdc_at_jdoy*, a VRT can then be made (i.e., *gdalbuildvrt*) for working with the output tiled as though they were one image. Just be sure to rename the bands after importing into R as the original band names will be lost, otherwise the following functions will fail as they look bands by name and not index.     
 
 ```{r fig.width=6, fig.height=6}
 #Get a CCDC image with coefficients for segments occurring during July 15, 2021 (i.e., near present day landscape conditions)
@@ -123,14 +124,36 @@ plot_ccdc_ts_quartiles(jul_15_2021,"2021-07-15",landcover,'landcover',730,'nir')
 #Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the shortwave infrared band 2 ('swir2') over a 720 day period 
 plot_ccdc_ts_bypoly(jul_15_2021,"2021-07-15",landcover,'landcover',730,'swir2',60)
 
-#Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the shortwave infrared band 2 ('swir2') over a 720 day period 
+#Same plot as above, only showing quartiles
 plot_ccdc_ts_quartiles(jul_15_2021,"2021-07-15",landcover,'landcover',730,'swir2')
 ```
 
 ## Comparing seasonal surface reflectance curves by landcover category (large areas of interest)
 
-Often the size of the exported [**GEE-Script**](https://code.earthengine.google.com/054860fe5914f0851080b26da27b1120)) raster can be quite large, and many polygons may be used for exploring intra-annual surface reflectance between categories. The *R.ccdc.tools::sample_ccdc_by_catg* function achieves essentially the same result as *R.ccdc.tools::plot_ccdc_ts_quartiles* (but uses a sample like plot_ccdc_ts_bypoly), but uses [**SAGA-GIS**](https://saga-gis.sourceforge.io/en/index.html) with [**RSAGA**](https://cran.r-project.org/web/packages/RSAGA/index.html) for more efficient computation and demand on memory resources. It also returns the computed surface reflectance data back as a data.frame. Its use is shown in the code below.
+Although we use the same CCDC image here, often the size of the exported [**GEE-Script**](https://code.earthengine.google.com/054860fe5914f0851080b26da27b1120) raster can be large and many polygons may be used for exploring surface reflectance signatures between categories. The *R.ccdc.tools::plot_ccdc_by_catg* function achieves essentially the same result as *R.ccdc.tools::plot_ccdc_ts_quartiles*, but uses a random sample like *plot_ccdc_ts_bypoly* by first calling *R.ccdc.tools::sample_ccdc_by_catg*, which uses [**SAGA-GIS**](https://saga-gis.sourceforge.io/en/index.html) with [**RSAGA**](https://cran.r-project.org/web/packages/RSAGA/index.html) for more efficient computation. It also returns the computed surface reflectance data back as a data.frame. Because SAGA-GIS cannot use R objects directly, they must first be written to disk. The two functions are applied below for the near-infrared band with 300 random samples locations (total, constrained to polygons) with a minimum distance of 50 m between random locations, the result is a list with the raw-data, plot and legend crosswalk, and are also shown. 
 
-```{r fig.width=6, fig.height=6}
+```{r fig.width=6, fig.height=6,message=FALSE, warning=FALSE, results = FALSE}
 
+#Write jul_15_2021 and landcover to temp directory 
+writeRaster(jul_15_2021,file.path(tempdir(),"jul_15_2021.tif"))
+writeVector(landcover,file.path(tempdir(),"landcover.shp"))
+
+#Use RSAGA for sampling CCDC coefficients (jul_15_2021) by polygon category, useful for large areas of interest with lots of polygons.  
+sampled<-sample_ccdc_by_catg(file.path(tempdir(),"landcover.shp"),file.path(tempdir(),"jul_15_2021.tif"),300,50,rsaga.env())
+head(sampled)
+
+#Use he result from above and create a plot from them for green band 
+sampled_ts<-plot_ccdc_by_catg(sampled,"2021-07-15","landcover","nir")
+sampled_ts
+
+#Use he result from above and create a plot from them for near-infrared band 
+sampled_ts<-plot_ccdc_by_catg(sampled,"2021-07-15","landcover","swir2")
+sampled_ts
+```
+
+
+```{r}
+sampled_ts['crosswalk']
+srdata<-as.data.frame(sampled_ts['srdata'])
+head(srdata)
 ```
