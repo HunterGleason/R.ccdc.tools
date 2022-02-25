@@ -332,7 +332,7 @@ plot_ccdc_by_catg<-function(ccdc_img_at_pnts,ccdc_img_date,catg_field,band,days=
     
     while(day<(double)end_date)
     {
-      double yhat=coef_intp[i]+coef_slp[i]*day+coef_cos[i]*cos((2.0*pi*day)/365.0)+coef_sin[i]*sin((2.0*pi*day)/365.0)+coef_cos2[i]*cos((4.0*pi*day)/365.0)+coef_sin2[i]*sin((4.0*pi*day)/365.0)+coef_cos3[i]*cos((6.0*pi*day)/365.0)+coef_sin3[i]*sin((6.0*pi*day)/365.0);
+      double yhat=coef_intp[i]+coef_slp[i]*day+coef_cos[i]*cos((2.0*pi*day)/365.25)+coef_sin[i]*sin((2.0*pi*day)/365.25)+coef_cos2[i]*cos((4.0*pi*day)/365.25)+coef_sin2[i]*sin((4.0*pi*day)/365.25)+coef_cos3[i]*cos((6.0*pi*day)/365.25)+coef_sin3[i]*sin((6.0*pi*day)/365.25);
       out(row_idx,2)=yhat;
       out(row_idx,0)=current_catg;
       out(row_idx,1)=day;

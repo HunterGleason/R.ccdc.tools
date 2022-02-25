@@ -22,12 +22,12 @@ ccdc_func<-function(julian_date,coef_intp,coef_slp,coef_cos,coef_sin,coef_cos2,c
 {
   val<-coef_intp+
     coef_slp*julian_date+
-    coef_cos*cos((2*pi*julian_date)/365)+
-    coef_sin*sin((2*pi*julian_date)/365)+
-    coef_cos2*cos(((4*pi*julian_date)/365))+
-    coef_sin2*sin(((4*pi*julian_date)/365))+
-    coef_cos3*cos(((6*pi*julian_date)/365))+
-    coef_sin3*sin(((6*pi*julian_date)/365))
+    coef_cos*cos((2*pi*julian_date)/365.25)+
+    coef_sin*sin((2*pi*julian_date)/365.25)+
+    coef_cos2*cos(((4*pi*julian_date)/365.25))+
+    coef_sin2*sin(((4*pi*julian_date)/365.25))+
+    coef_cos3*cos(((6*pi*julian_date)/365.25))+
+    coef_sin3*sin(((6*pi*julian_date)/365.25))
   
   return(as.numeric(val))
 }

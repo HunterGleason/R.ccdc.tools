@@ -102,7 +102,7 @@ gen_ccdc_at_jdoy<-function(ccdc_img,date)
 #' @export
 date_to_jday<-function(date)
 {
-  as.numeric(as.Date(date)-as.Date('0000-01-01'))
+  as.numeric(as.Date(date)-as.Date('0001-01-01'))
 }
 
 
@@ -113,5 +113,5 @@ date_to_jday<-function(date)
 #' @export
 jday_to_date<-function(jday)
 {
-  as.Date(jday,origin = '0000-01-01 00:00:00 UTC')
+  as.Date(jday,origin = '0001-01-01 00:00:00 UTC')
 }
