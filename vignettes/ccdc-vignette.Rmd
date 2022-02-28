@@ -72,6 +72,30 @@ plot(jday_to_date(ts_green[,'jdoy_vec']),ts_green[,'ts'],type='l',xlab='Date',yl
 plot(jday_to_date(ts_nir[,'jdoy_vec']),ts_nir[,'ts'],type='l',xlab='Date',ylab='NIR Band Surface Reflectance')
 ```
 
+## Generate a synthentic CCDC image for a given date
+
+In the code below we apply the *R.ccdc.tools::gen_synthetic_img* for generating and plotting synthetic RGB Landsat scenes at several consecutive dates using the CCDC coefficients found in *ccdc_img*.  
+
+```{r fig.width=6, fig.height=6}
+start_date<-date_to_jday("2020-01-01")
+end_date<-date_to_jday("2021-01-01")
+dates<-as.character(jday_to_date(seq(start_date,end_date,60)))
+
+
+for(date in dates)
+{
+  cat(date,'\n')
+  synthetic<-gen_ccdc_synthetic_img(ccdc_img,date)
+  plotRGB(synthetic,r=3,g=2,b=1,stretch="hist")
+  title(date,line=-1)
+}
+
+```
+
+
+
+
+
 ## Generate CCDC image with coeffcients that correspond to specfic date only
 
 It can be useful to generate raster with only the [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients that correspond to specific point in time. This is accomplished with the *R.ccdc.tools::gen_ccdc_at_jdoy* function, which returns a raster with all [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients but only for the segments that occur during the provided date (within the CCDC time-series, typically 1984~present day). For example, below we generate a CCDC image that contains all the [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients but derived form only the segments that occur during July 15, 2021, as such, we see that the bands no longer have a segment identifier associated with them. We use July 15, 2021 because it represent near present landscape conditions when this document was written, but any date could be used. This output can be used for comparing seasonal surface reflectance curves, or input directly into any classification or regression model. Notice that the start Julian date and end Julian date of the corresponding segment is also included as additional bands. Note for large CCDC rasters this function may be slow and memory intensive, if this is case (not shown here) it is recommended to create tiles (i.e., *st_tile*) from the CCDC imagery and process the tiles using *R.ccdc.tools::gen_ccdc_at_jdoy*, a VRT can then be made (i.e., *gdalbuildvrt*) for working with the output tiles as though they were one image. Just be sure to rename the bands after importing a VRT into R as the original band names will be lost, otherwise the following functions will fail as they look for bands by name and not index.     
