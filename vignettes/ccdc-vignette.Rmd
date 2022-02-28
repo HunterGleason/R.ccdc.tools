@@ -40,8 +40,8 @@ ccdc_img = exampleData
 plot(rast(ccdc_img))
 
 #Arbitrary example coordinates (EPSG:3005) within the image bounds
-x_coord<-1794708.42
-y_coord<-611511.36
+x_coord<-1797102
+y_coord<-608235
 epsg<-3005
 
 #Extract the model coefficients at the point from the CCDC image
@@ -77,8 +77,8 @@ plot(jday_to_date(ts_nir[,'jdoy_vec']),ts_nir[,'ts'],type='l',xlab='Date',ylab='
 In the code below we apply the *R.ccdc.tools::gen_synthetic_img* for generating and plotting synthetic RGB Landsat scenes at several consecutive dates using the CCDC coefficients found in *ccdc_img*.  
 
 ```{r fig.width=6, fig.height=6}
-start_date<-date_to_jday("2020-01-01")
-end_date<-date_to_jday("2021-01-01")
+start_date<-date_to_jday("1991-01-01")
+end_date<-date_to_jday("1992-01-01")
 dates<-as.character(jday_to_date(seq(start_date,end_date,60)))
 
 
@@ -116,17 +116,6 @@ As a very simple example below we load in basic landcover polygons for use in la
 landcover <- landcover
 landcover <- vect(landcover)
 
-#Get freshwater wetlands within AOI, merge with landcover layer 
-wetlands<-bcdc_query_geodata('93b413d8-1840-4770-9629-641d74bd1cc6') %>%
-  filter(INTERSECTS(st_bbox(st_as_stars(jul_15_2021)))) %>%
-  collect()
-
-#Simplify layer 
-wetlands<-wetlands[,'id']
-wetlands$landcover<-'Wetland'
-
-#Merge wetlands with landcover
-landcover <- rbind(landcover,vect(wetlands)) 
 
 #Plot category layer
 ggplot()+
