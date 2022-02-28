@@ -335,7 +335,7 @@ therm_band[i] =S4_therm_INTP[i]+S4_therm_SLP[i]*jdoy+S4_therm_COS[i]*cos((2.0*pi
          
                   }')  
   
-  img<-ccdc_synthetic(ccdc_img,jdoy)
+  img<-ccdc_synthetic_img(ccdc_img,jdoy)
   
   img<-terra::rast(img,type='xyz')
   
