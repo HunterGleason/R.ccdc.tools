@@ -43,8 +43,7 @@ gen_ccdc_synthetic_img<-function(ccdc_img,date,orig_crs=NULL)
                   NumericVector swir2_band(n);
                   NumericVector therm_band(n);
                   
-
-                  NumericVector S1_blue_INTP = ccdc_df["S1_blue_coef_INTP"]; 
+NumericVector S1_blue_INTP = ccdc_df["S1_blue_coef_INTP"]; 
 NumericVector S1_blue_SLP = ccdc_df["S1_blue_coef_SLP"]; 
 NumericVector S1_blue_COS = ccdc_df["S1_blue_coef_COS"]; 
 NumericVector S1_blue_SIN = ccdc_df["S1_blue_coef_SIN"]; 
@@ -76,6 +75,38 @@ NumericVector S4_blue_COS2 = ccdc_df["S4_blue_coef_COS2"];
 NumericVector S4_blue_SIN2 = ccdc_df["S4_blue_coef_SIN2"]; 
 NumericVector S4_blue_COS3 = ccdc_df["S4_blue_coef_COS3"]; 
 NumericVector S4_blue_SIN3 = ccdc_df["S4_blue_coef_SIN3"]; 
+NumericVector S5_blue_INTP = ccdc_df["S5_blue_coef_INTP"]; 
+NumericVector S5_blue_SLP = ccdc_df["S5_blue_coef_SLP"]; 
+NumericVector S5_blue_COS = ccdc_df["S5_blue_coef_COS"]; 
+NumericVector S5_blue_SIN = ccdc_df["S5_blue_coef_SIN"]; 
+NumericVector S5_blue_COS2 = ccdc_df["S5_blue_coef_COS2"]; 
+NumericVector S5_blue_SIN2 = ccdc_df["S5_blue_coef_SIN2"]; 
+NumericVector S5_blue_COS3 = ccdc_df["S5_blue_coef_COS3"]; 
+NumericVector S5_blue_SIN3 = ccdc_df["S5_blue_coef_SIN3"]; 
+NumericVector S6_blue_INTP = ccdc_df["S6_blue_coef_INTP"]; 
+NumericVector S6_blue_SLP = ccdc_df["S6_blue_coef_SLP"]; 
+NumericVector S6_blue_COS = ccdc_df["S6_blue_coef_COS"]; 
+NumericVector S6_blue_SIN = ccdc_df["S6_blue_coef_SIN"]; 
+NumericVector S6_blue_COS2 = ccdc_df["S6_blue_coef_COS2"]; 
+NumericVector S6_blue_SIN2 = ccdc_df["S6_blue_coef_SIN2"]; 
+NumericVector S6_blue_COS3 = ccdc_df["S6_blue_coef_COS3"]; 
+NumericVector S6_blue_SIN3 = ccdc_df["S6_blue_coef_SIN3"]; 
+NumericVector S7_blue_INTP = ccdc_df["S7_blue_coef_INTP"]; 
+NumericVector S7_blue_SLP = ccdc_df["S7_blue_coef_SLP"]; 
+NumericVector S7_blue_COS = ccdc_df["S7_blue_coef_COS"]; 
+NumericVector S7_blue_SIN = ccdc_df["S7_blue_coef_SIN"]; 
+NumericVector S7_blue_COS2 = ccdc_df["S7_blue_coef_COS2"]; 
+NumericVector S7_blue_SIN2 = ccdc_df["S7_blue_coef_SIN2"]; 
+NumericVector S7_blue_COS3 = ccdc_df["S7_blue_coef_COS3"]; 
+NumericVector S7_blue_SIN3 = ccdc_df["S7_blue_coef_SIN3"]; 
+NumericVector S8_blue_INTP = ccdc_df["S8_blue_coef_INTP"]; 
+NumericVector S8_blue_SLP = ccdc_df["S8_blue_coef_SLP"]; 
+NumericVector S8_blue_COS = ccdc_df["S8_blue_coef_COS"]; 
+NumericVector S8_blue_SIN = ccdc_df["S8_blue_coef_SIN"]; 
+NumericVector S8_blue_COS2 = ccdc_df["S8_blue_coef_COS2"]; 
+NumericVector S8_blue_SIN2 = ccdc_df["S8_blue_coef_SIN2"]; 
+NumericVector S8_blue_COS3 = ccdc_df["S8_blue_coef_COS3"]; 
+NumericVector S8_blue_SIN3 = ccdc_df["S8_blue_coef_SIN3"]; 
 NumericVector S1_green_INTP = ccdc_df["S1_green_coef_INTP"]; 
 NumericVector S1_green_SLP = ccdc_df["S1_green_coef_SLP"]; 
 NumericVector S1_green_COS = ccdc_df["S1_green_coef_COS"]; 
@@ -108,6 +139,38 @@ NumericVector S4_green_COS2 = ccdc_df["S4_green_coef_COS2"];
 NumericVector S4_green_SIN2 = ccdc_df["S4_green_coef_SIN2"]; 
 NumericVector S4_green_COS3 = ccdc_df["S4_green_coef_COS3"]; 
 NumericVector S4_green_SIN3 = ccdc_df["S4_green_coef_SIN3"]; 
+NumericVector S5_green_INTP = ccdc_df["S5_green_coef_INTP"]; 
+NumericVector S5_green_SLP = ccdc_df["S5_green_coef_SLP"]; 
+NumericVector S5_green_COS = ccdc_df["S5_green_coef_COS"]; 
+NumericVector S5_green_SIN = ccdc_df["S5_green_coef_SIN"]; 
+NumericVector S5_green_COS2 = ccdc_df["S5_green_coef_COS2"]; 
+NumericVector S5_green_SIN2 = ccdc_df["S5_green_coef_SIN2"]; 
+NumericVector S5_green_COS3 = ccdc_df["S5_green_coef_COS3"]; 
+NumericVector S5_green_SIN3 = ccdc_df["S5_green_coef_SIN3"]; 
+NumericVector S6_green_INTP = ccdc_df["S6_green_coef_INTP"]; 
+NumericVector S6_green_SLP = ccdc_df["S6_green_coef_SLP"]; 
+NumericVector S6_green_COS = ccdc_df["S6_green_coef_COS"]; 
+NumericVector S6_green_SIN = ccdc_df["S6_green_coef_SIN"]; 
+NumericVector S6_green_COS2 = ccdc_df["S6_green_coef_COS2"]; 
+NumericVector S6_green_SIN2 = ccdc_df["S6_green_coef_SIN2"]; 
+NumericVector S6_green_COS3 = ccdc_df["S6_green_coef_COS3"]; 
+NumericVector S6_green_SIN3 = ccdc_df["S6_green_coef_SIN3"]; 
+NumericVector S7_green_INTP = ccdc_df["S7_green_coef_INTP"]; 
+NumericVector S7_green_SLP = ccdc_df["S7_green_coef_SLP"]; 
+NumericVector S7_green_COS = ccdc_df["S7_green_coef_COS"]; 
+NumericVector S7_green_SIN = ccdc_df["S7_green_coef_SIN"]; 
+NumericVector S7_green_COS2 = ccdc_df["S7_green_coef_COS2"]; 
+NumericVector S7_green_SIN2 = ccdc_df["S7_green_coef_SIN2"]; 
+NumericVector S7_green_COS3 = ccdc_df["S7_green_coef_COS3"]; 
+NumericVector S7_green_SIN3 = ccdc_df["S7_green_coef_SIN3"]; 
+NumericVector S8_green_INTP = ccdc_df["S8_green_coef_INTP"]; 
+NumericVector S8_green_SLP = ccdc_df["S8_green_coef_SLP"]; 
+NumericVector S8_green_COS = ccdc_df["S8_green_coef_COS"]; 
+NumericVector S8_green_SIN = ccdc_df["S8_green_coef_SIN"]; 
+NumericVector S8_green_COS2 = ccdc_df["S8_green_coef_COS2"]; 
+NumericVector S8_green_SIN2 = ccdc_df["S8_green_coef_SIN2"]; 
+NumericVector S8_green_COS3 = ccdc_df["S8_green_coef_COS3"]; 
+NumericVector S8_green_SIN3 = ccdc_df["S8_green_coef_SIN3"]; 
 NumericVector S1_red_INTP = ccdc_df["S1_red_coef_INTP"]; 
 NumericVector S1_red_SLP = ccdc_df["S1_red_coef_SLP"]; 
 NumericVector S1_red_COS = ccdc_df["S1_red_coef_COS"]; 
@@ -140,6 +203,38 @@ NumericVector S4_red_COS2 = ccdc_df["S4_red_coef_COS2"];
 NumericVector S4_red_SIN2 = ccdc_df["S4_red_coef_SIN2"]; 
 NumericVector S4_red_COS3 = ccdc_df["S4_red_coef_COS3"]; 
 NumericVector S4_red_SIN3 = ccdc_df["S4_red_coef_SIN3"]; 
+NumericVector S5_red_INTP = ccdc_df["S5_red_coef_INTP"]; 
+NumericVector S5_red_SLP = ccdc_df["S5_red_coef_SLP"]; 
+NumericVector S5_red_COS = ccdc_df["S5_red_coef_COS"]; 
+NumericVector S5_red_SIN = ccdc_df["S5_red_coef_SIN"]; 
+NumericVector S5_red_COS2 = ccdc_df["S5_red_coef_COS2"]; 
+NumericVector S5_red_SIN2 = ccdc_df["S5_red_coef_SIN2"]; 
+NumericVector S5_red_COS3 = ccdc_df["S5_red_coef_COS3"]; 
+NumericVector S5_red_SIN3 = ccdc_df["S5_red_coef_SIN3"]; 
+NumericVector S6_red_INTP = ccdc_df["S6_red_coef_INTP"]; 
+NumericVector S6_red_SLP = ccdc_df["S6_red_coef_SLP"]; 
+NumericVector S6_red_COS = ccdc_df["S6_red_coef_COS"]; 
+NumericVector S6_red_SIN = ccdc_df["S6_red_coef_SIN"]; 
+NumericVector S6_red_COS2 = ccdc_df["S6_red_coef_COS2"]; 
+NumericVector S6_red_SIN2 = ccdc_df["S6_red_coef_SIN2"]; 
+NumericVector S6_red_COS3 = ccdc_df["S6_red_coef_COS3"]; 
+NumericVector S6_red_SIN3 = ccdc_df["S6_red_coef_SIN3"]; 
+NumericVector S7_red_INTP = ccdc_df["S7_red_coef_INTP"]; 
+NumericVector S7_red_SLP = ccdc_df["S7_red_coef_SLP"]; 
+NumericVector S7_red_COS = ccdc_df["S7_red_coef_COS"]; 
+NumericVector S7_red_SIN = ccdc_df["S7_red_coef_SIN"]; 
+NumericVector S7_red_COS2 = ccdc_df["S7_red_coef_COS2"]; 
+NumericVector S7_red_SIN2 = ccdc_df["S7_red_coef_SIN2"]; 
+NumericVector S7_red_COS3 = ccdc_df["S7_red_coef_COS3"]; 
+NumericVector S7_red_SIN3 = ccdc_df["S7_red_coef_SIN3"]; 
+NumericVector S8_red_INTP = ccdc_df["S8_red_coef_INTP"]; 
+NumericVector S8_red_SLP = ccdc_df["S8_red_coef_SLP"]; 
+NumericVector S8_red_COS = ccdc_df["S8_red_coef_COS"]; 
+NumericVector S8_red_SIN = ccdc_df["S8_red_coef_SIN"]; 
+NumericVector S8_red_COS2 = ccdc_df["S8_red_coef_COS2"]; 
+NumericVector S8_red_SIN2 = ccdc_df["S8_red_coef_SIN2"]; 
+NumericVector S8_red_COS3 = ccdc_df["S8_red_coef_COS3"]; 
+NumericVector S8_red_SIN3 = ccdc_df["S8_red_coef_SIN3"]; 
 NumericVector S1_nir_INTP = ccdc_df["S1_nir_coef_INTP"]; 
 NumericVector S1_nir_SLP = ccdc_df["S1_nir_coef_SLP"]; 
 NumericVector S1_nir_COS = ccdc_df["S1_nir_coef_COS"]; 
@@ -172,6 +267,38 @@ NumericVector S4_nir_COS2 = ccdc_df["S4_nir_coef_COS2"];
 NumericVector S4_nir_SIN2 = ccdc_df["S4_nir_coef_SIN2"]; 
 NumericVector S4_nir_COS3 = ccdc_df["S4_nir_coef_COS3"]; 
 NumericVector S4_nir_SIN3 = ccdc_df["S4_nir_coef_SIN3"]; 
+NumericVector S5_nir_INTP = ccdc_df["S5_nir_coef_INTP"]; 
+NumericVector S5_nir_SLP = ccdc_df["S5_nir_coef_SLP"]; 
+NumericVector S5_nir_COS = ccdc_df["S5_nir_coef_COS"]; 
+NumericVector S5_nir_SIN = ccdc_df["S5_nir_coef_SIN"]; 
+NumericVector S5_nir_COS2 = ccdc_df["S5_nir_coef_COS2"]; 
+NumericVector S5_nir_SIN2 = ccdc_df["S5_nir_coef_SIN2"]; 
+NumericVector S5_nir_COS3 = ccdc_df["S5_nir_coef_COS3"]; 
+NumericVector S5_nir_SIN3 = ccdc_df["S5_nir_coef_SIN3"]; 
+NumericVector S6_nir_INTP = ccdc_df["S6_nir_coef_INTP"]; 
+NumericVector S6_nir_SLP = ccdc_df["S6_nir_coef_SLP"]; 
+NumericVector S6_nir_COS = ccdc_df["S6_nir_coef_COS"]; 
+NumericVector S6_nir_SIN = ccdc_df["S6_nir_coef_SIN"]; 
+NumericVector S6_nir_COS2 = ccdc_df["S6_nir_coef_COS2"]; 
+NumericVector S6_nir_SIN2 = ccdc_df["S6_nir_coef_SIN2"]; 
+NumericVector S6_nir_COS3 = ccdc_df["S6_nir_coef_COS3"]; 
+NumericVector S6_nir_SIN3 = ccdc_df["S6_nir_coef_SIN3"]; 
+NumericVector S7_nir_INTP = ccdc_df["S7_nir_coef_INTP"]; 
+NumericVector S7_nir_SLP = ccdc_df["S7_nir_coef_SLP"]; 
+NumericVector S7_nir_COS = ccdc_df["S7_nir_coef_COS"]; 
+NumericVector S7_nir_SIN = ccdc_df["S7_nir_coef_SIN"]; 
+NumericVector S7_nir_COS2 = ccdc_df["S7_nir_coef_COS2"]; 
+NumericVector S7_nir_SIN2 = ccdc_df["S7_nir_coef_SIN2"]; 
+NumericVector S7_nir_COS3 = ccdc_df["S7_nir_coef_COS3"]; 
+NumericVector S7_nir_SIN3 = ccdc_df["S7_nir_coef_SIN3"]; 
+NumericVector S8_nir_INTP = ccdc_df["S8_nir_coef_INTP"]; 
+NumericVector S8_nir_SLP = ccdc_df["S8_nir_coef_SLP"]; 
+NumericVector S8_nir_COS = ccdc_df["S8_nir_coef_COS"]; 
+NumericVector S8_nir_SIN = ccdc_df["S8_nir_coef_SIN"]; 
+NumericVector S8_nir_COS2 = ccdc_df["S8_nir_coef_COS2"]; 
+NumericVector S8_nir_SIN2 = ccdc_df["S8_nir_coef_SIN2"]; 
+NumericVector S8_nir_COS3 = ccdc_df["S8_nir_coef_COS3"]; 
+NumericVector S8_nir_SIN3 = ccdc_df["S8_nir_coef_SIN3"]; 
 NumericVector S1_swir1_INTP = ccdc_df["S1_swir1_coef_INTP"]; 
 NumericVector S1_swir1_SLP = ccdc_df["S1_swir1_coef_SLP"]; 
 NumericVector S1_swir1_COS = ccdc_df["S1_swir1_coef_COS"]; 
@@ -204,6 +331,38 @@ NumericVector S4_swir1_COS2 = ccdc_df["S4_swir1_coef_COS2"];
 NumericVector S4_swir1_SIN2 = ccdc_df["S4_swir1_coef_SIN2"]; 
 NumericVector S4_swir1_COS3 = ccdc_df["S4_swir1_coef_COS3"]; 
 NumericVector S4_swir1_SIN3 = ccdc_df["S4_swir1_coef_SIN3"]; 
+NumericVector S5_swir1_INTP = ccdc_df["S5_swir1_coef_INTP"]; 
+NumericVector S5_swir1_SLP = ccdc_df["S5_swir1_coef_SLP"]; 
+NumericVector S5_swir1_COS = ccdc_df["S5_swir1_coef_COS"]; 
+NumericVector S5_swir1_SIN = ccdc_df["S5_swir1_coef_SIN"]; 
+NumericVector S5_swir1_COS2 = ccdc_df["S5_swir1_coef_COS2"]; 
+NumericVector S5_swir1_SIN2 = ccdc_df["S5_swir1_coef_SIN2"]; 
+NumericVector S5_swir1_COS3 = ccdc_df["S5_swir1_coef_COS3"]; 
+NumericVector S5_swir1_SIN3 = ccdc_df["S5_swir1_coef_SIN3"]; 
+NumericVector S6_swir1_INTP = ccdc_df["S6_swir1_coef_INTP"]; 
+NumericVector S6_swir1_SLP = ccdc_df["S6_swir1_coef_SLP"]; 
+NumericVector S6_swir1_COS = ccdc_df["S6_swir1_coef_COS"]; 
+NumericVector S6_swir1_SIN = ccdc_df["S6_swir1_coef_SIN"]; 
+NumericVector S6_swir1_COS2 = ccdc_df["S6_swir1_coef_COS2"]; 
+NumericVector S6_swir1_SIN2 = ccdc_df["S6_swir1_coef_SIN2"]; 
+NumericVector S6_swir1_COS3 = ccdc_df["S6_swir1_coef_COS3"]; 
+NumericVector S6_swir1_SIN3 = ccdc_df["S6_swir1_coef_SIN3"]; 
+NumericVector S7_swir1_INTP = ccdc_df["S7_swir1_coef_INTP"]; 
+NumericVector S7_swir1_SLP = ccdc_df["S7_swir1_coef_SLP"]; 
+NumericVector S7_swir1_COS = ccdc_df["S7_swir1_coef_COS"]; 
+NumericVector S7_swir1_SIN = ccdc_df["S7_swir1_coef_SIN"]; 
+NumericVector S7_swir1_COS2 = ccdc_df["S7_swir1_coef_COS2"]; 
+NumericVector S7_swir1_SIN2 = ccdc_df["S7_swir1_coef_SIN2"]; 
+NumericVector S7_swir1_COS3 = ccdc_df["S7_swir1_coef_COS3"]; 
+NumericVector S7_swir1_SIN3 = ccdc_df["S7_swir1_coef_SIN3"]; 
+NumericVector S8_swir1_INTP = ccdc_df["S8_swir1_coef_INTP"]; 
+NumericVector S8_swir1_SLP = ccdc_df["S8_swir1_coef_SLP"]; 
+NumericVector S8_swir1_COS = ccdc_df["S8_swir1_coef_COS"]; 
+NumericVector S8_swir1_SIN = ccdc_df["S8_swir1_coef_SIN"]; 
+NumericVector S8_swir1_COS2 = ccdc_df["S8_swir1_coef_COS2"]; 
+NumericVector S8_swir1_SIN2 = ccdc_df["S8_swir1_coef_SIN2"]; 
+NumericVector S8_swir1_COS3 = ccdc_df["S8_swir1_coef_COS3"]; 
+NumericVector S8_swir1_SIN3 = ccdc_df["S8_swir1_coef_SIN3"]; 
 NumericVector S1_swir2_INTP = ccdc_df["S1_swir2_coef_INTP"]; 
 NumericVector S1_swir2_SLP = ccdc_df["S1_swir2_coef_SLP"]; 
 NumericVector S1_swir2_COS = ccdc_df["S1_swir2_coef_COS"]; 
@@ -236,6 +395,38 @@ NumericVector S4_swir2_COS2 = ccdc_df["S4_swir2_coef_COS2"];
 NumericVector S4_swir2_SIN2 = ccdc_df["S4_swir2_coef_SIN2"]; 
 NumericVector S4_swir2_COS3 = ccdc_df["S4_swir2_coef_COS3"]; 
 NumericVector S4_swir2_SIN3 = ccdc_df["S4_swir2_coef_SIN3"]; 
+NumericVector S5_swir2_INTP = ccdc_df["S5_swir2_coef_INTP"]; 
+NumericVector S5_swir2_SLP = ccdc_df["S5_swir2_coef_SLP"]; 
+NumericVector S5_swir2_COS = ccdc_df["S5_swir2_coef_COS"]; 
+NumericVector S5_swir2_SIN = ccdc_df["S5_swir2_coef_SIN"]; 
+NumericVector S5_swir2_COS2 = ccdc_df["S5_swir2_coef_COS2"]; 
+NumericVector S5_swir2_SIN2 = ccdc_df["S5_swir2_coef_SIN2"]; 
+NumericVector S5_swir2_COS3 = ccdc_df["S5_swir2_coef_COS3"]; 
+NumericVector S5_swir2_SIN3 = ccdc_df["S5_swir2_coef_SIN3"]; 
+NumericVector S6_swir2_INTP = ccdc_df["S6_swir2_coef_INTP"]; 
+NumericVector S6_swir2_SLP = ccdc_df["S6_swir2_coef_SLP"]; 
+NumericVector S6_swir2_COS = ccdc_df["S6_swir2_coef_COS"]; 
+NumericVector S6_swir2_SIN = ccdc_df["S6_swir2_coef_SIN"]; 
+NumericVector S6_swir2_COS2 = ccdc_df["S6_swir2_coef_COS2"]; 
+NumericVector S6_swir2_SIN2 = ccdc_df["S6_swir2_coef_SIN2"]; 
+NumericVector S6_swir2_COS3 = ccdc_df["S6_swir2_coef_COS3"]; 
+NumericVector S6_swir2_SIN3 = ccdc_df["S6_swir2_coef_SIN3"]; 
+NumericVector S7_swir2_INTP = ccdc_df["S7_swir2_coef_INTP"]; 
+NumericVector S7_swir2_SLP = ccdc_df["S7_swir2_coef_SLP"]; 
+NumericVector S7_swir2_COS = ccdc_df["S7_swir2_coef_COS"]; 
+NumericVector S7_swir2_SIN = ccdc_df["S7_swir2_coef_SIN"]; 
+NumericVector S7_swir2_COS2 = ccdc_df["S7_swir2_coef_COS2"]; 
+NumericVector S7_swir2_SIN2 = ccdc_df["S7_swir2_coef_SIN2"]; 
+NumericVector S7_swir2_COS3 = ccdc_df["S7_swir2_coef_COS3"]; 
+NumericVector S7_swir2_SIN3 = ccdc_df["S7_swir2_coef_SIN3"]; 
+NumericVector S8_swir2_INTP = ccdc_df["S8_swir2_coef_INTP"]; 
+NumericVector S8_swir2_SLP = ccdc_df["S8_swir2_coef_SLP"]; 
+NumericVector S8_swir2_COS = ccdc_df["S8_swir2_coef_COS"]; 
+NumericVector S8_swir2_SIN = ccdc_df["S8_swir2_coef_SIN"]; 
+NumericVector S8_swir2_COS2 = ccdc_df["S8_swir2_coef_COS2"]; 
+NumericVector S8_swir2_SIN2 = ccdc_df["S8_swir2_coef_SIN2"]; 
+NumericVector S8_swir2_COS3 = ccdc_df["S8_swir2_coef_COS3"]; 
+NumericVector S8_swir2_SIN3 = ccdc_df["S8_swir2_coef_SIN3"]; 
 NumericVector S1_therm_INTP = ccdc_df["S1_therm_coef_INTP"]; 
 NumericVector S1_therm_SLP = ccdc_df["S1_therm_coef_SLP"]; 
 NumericVector S1_therm_COS = ccdc_df["S1_therm_coef_COS"]; 
@@ -267,15 +458,39 @@ NumericVector S4_therm_SIN = ccdc_df["S4_therm_coef_SIN"];
 NumericVector S4_therm_COS2 = ccdc_df["S4_therm_coef_COS2"]; 
 NumericVector S4_therm_SIN2 = ccdc_df["S4_therm_coef_SIN2"]; 
 NumericVector S4_therm_COS3 = ccdc_df["S4_therm_coef_COS3"]; 
-NumericVector S4_therm_SIN3 = ccdc_df["S4_therm_coef_SIN3"];
-NumericVector S1_tStart = ccdc_df["S1_tStart"];
-NumericVector S1_tEnd = ccdc_df["S1_tEnd"];
-NumericVector S2_tStart = ccdc_df["S2_tStart"];
-NumericVector S2_tEnd = ccdc_df["S2_tEnd"];
-NumericVector S3_tStart = ccdc_df["S3_tStart"];
-NumericVector S3_tEnd = ccdc_df["S3_tEnd"];
-NumericVector S4_tStart = ccdc_df["S4_tStart"];
-NumericVector S4_tEnd = ccdc_df["S4_tEnd"];
+NumericVector S4_therm_SIN3 = ccdc_df["S4_therm_coef_SIN3"]; 
+NumericVector S5_therm_INTP = ccdc_df["S5_therm_coef_INTP"]; 
+NumericVector S5_therm_SLP = ccdc_df["S5_therm_coef_SLP"]; 
+NumericVector S5_therm_COS = ccdc_df["S5_therm_coef_COS"]; 
+NumericVector S5_therm_SIN = ccdc_df["S5_therm_coef_SIN"]; 
+NumericVector S5_therm_COS2 = ccdc_df["S5_therm_coef_COS2"]; 
+NumericVector S5_therm_SIN2 = ccdc_df["S5_therm_coef_SIN2"]; 
+NumericVector S5_therm_COS3 = ccdc_df["S5_therm_coef_COS3"]; 
+NumericVector S5_therm_SIN3 = ccdc_df["S5_therm_coef_SIN3"]; 
+NumericVector S6_therm_INTP = ccdc_df["S6_therm_coef_INTP"]; 
+NumericVector S6_therm_SLP = ccdc_df["S6_therm_coef_SLP"]; 
+NumericVector S6_therm_COS = ccdc_df["S6_therm_coef_COS"]; 
+NumericVector S6_therm_SIN = ccdc_df["S6_therm_coef_SIN"]; 
+NumericVector S6_therm_COS2 = ccdc_df["S6_therm_coef_COS2"]; 
+NumericVector S6_therm_SIN2 = ccdc_df["S6_therm_coef_SIN2"]; 
+NumericVector S6_therm_COS3 = ccdc_df["S6_therm_coef_COS3"]; 
+NumericVector S6_therm_SIN3 = ccdc_df["S6_therm_coef_SIN3"]; 
+NumericVector S7_therm_INTP = ccdc_df["S7_therm_coef_INTP"]; 
+NumericVector S7_therm_SLP = ccdc_df["S7_therm_coef_SLP"]; 
+NumericVector S7_therm_COS = ccdc_df["S7_therm_coef_COS"]; 
+NumericVector S7_therm_SIN = ccdc_df["S7_therm_coef_SIN"]; 
+NumericVector S7_therm_COS2 = ccdc_df["S7_therm_coef_COS2"]; 
+NumericVector S7_therm_SIN2 = ccdc_df["S7_therm_coef_SIN2"]; 
+NumericVector S7_therm_COS3 = ccdc_df["S7_therm_coef_COS3"]; 
+NumericVector S7_therm_SIN3 = ccdc_df["S7_therm_coef_SIN3"]; 
+NumericVector S8_therm_INTP = ccdc_df["S8_therm_coef_INTP"]; 
+NumericVector S8_therm_SLP = ccdc_df["S8_therm_coef_SLP"]; 
+NumericVector S8_therm_COS = ccdc_df["S8_therm_coef_COS"]; 
+NumericVector S8_therm_SIN = ccdc_df["S8_therm_coef_SIN"]; 
+NumericVector S8_therm_COS2 = ccdc_df["S8_therm_coef_COS2"]; 
+NumericVector S8_therm_SIN2 = ccdc_df["S8_therm_coef_SIN2"]; 
+NumericVector S8_therm_COS3 = ccdc_df["S8_therm_coef_COS3"]; 
+NumericVector S8_therm_SIN3 = ccdc_df["S8_therm_coef_SIN3"]; 
 
                   
                   
@@ -318,7 +533,43 @@ nir_band[i] =S4_nir_INTP[i]+S4_nir_SLP[i]*jdoy+S4_nir_COS[i]*cos((2.0*pi*jdoy)/3
 swir1_band[i] =S4_swir1_INTP[i]+S4_swir1_SLP[i]*jdoy+S4_swir1_COS[i]*cos((2.0*pi*jdoy)/365.25)+S4_swir1_SIN[i]*sin((2.0*pi*jdoy)/365.25)+S4_swir1_COS2[i]*cos((4.0*pi*jdoy)/365.25)+S4_swir1_SIN2[i]*sin((4.0*pi*jdoy)/365.25)+S4_swir1_COS3[i]*cos((6.0*pi*jdoy)/365.25)+S4_swir1_SIN3[i]*sin((6.0*pi*jdoy)/365.25); 
 swir2_band[i] =S4_swir2_INTP[i]+S4_swir2_SLP[i]*jdoy+S4_swir2_COS[i]*cos((2.0*pi*jdoy)/365.25)+S4_swir2_SIN[i]*sin((2.0*pi*jdoy)/365.25)+S4_swir2_COS2[i]*cos((4.0*pi*jdoy)/365.25)+S4_swir2_SIN2[i]*sin((4.0*pi*jdoy)/365.25)+S4_swir2_COS3[i]*cos((6.0*pi*jdoy)/365.25)+S4_swir2_SIN3[i]*sin((6.0*pi*jdoy)/365.25); 
 therm_band[i] =S4_therm_INTP[i]+S4_therm_SLP[i]*jdoy+S4_therm_COS[i]*cos((2.0*pi*jdoy)/365.25)+S4_therm_SIN[i]*sin((2.0*pi*jdoy)/365.25)+S4_therm_COS2[i]*cos((4.0*pi*jdoy)/365.25)+S4_therm_SIN2[i]*sin((4.0*pi*jdoy)/365.25)+S4_therm_COS3[i]*cos((6.0*pi*jdoy)/365.25)+S4_therm_SIN3[i]*sin((6.0*pi*jdoy)/365.25); 
-            }
+            }else if (jdoy >= S5_tStart[i] && jdoy <= S5_tEnd[i])
+                    {
+                    blue_band[i] =S5_blue_INTP[i]+S5_blue_SLP[i]*jdoy+S5_blue_COS[i]*cos((2.0*pi*jdoy)/365.0)+S5_blue_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S5_blue_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S5_blue_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S5_blue_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S5_blue_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+green_band[i] =S5_green_INTP[i]+S5_green_SLP[i]*jdoy+S5_green_COS[i]*cos((2.0*pi*jdoy)/365.0)+S5_green_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S5_green_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S5_green_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S5_green_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S5_green_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+red_band[i] =S5_red_INTP[i]+S5_red_SLP[i]*jdoy+S5_red_COS[i]*cos((2.0*pi*jdoy)/365.0)+S5_red_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S5_red_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S5_red_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S5_red_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S5_red_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+nir_band[i] =S5_nir_INTP[i]+S5_nir_SLP[i]*jdoy+S5_nir_COS[i]*cos((2.0*pi*jdoy)/365.0)+S5_nir_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S5_nir_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S5_nir_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S5_nir_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S5_nir_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+swir1_band[i] =S5_swir1_INTP[i]+S5_swir1_SLP[i]*jdoy+S5_swir1_COS[i]*cos((2.0*pi*jdoy)/365.0)+S5_swir1_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S5_swir1_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S5_swir1_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S5_swir1_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S5_swir1_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+swir2_band[i] =S5_swir2_INTP[i]+S5_swir2_SLP[i]*jdoy+S5_swir2_COS[i]*cos((2.0*pi*jdoy)/365.0)+S5_swir2_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S5_swir2_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S5_swir2_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S5_swir2_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S5_swir2_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+therm_band[i] =S5_therm_INTP[i]+S5_therm_SLP[i]*jdoy+S5_therm_COS[i]*cos((2.0*pi*jdoy)/365.0)+S5_therm_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S5_therm_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S5_therm_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S5_therm_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S5_therm_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+                    }else if (jdoy >= S6_tStart[i] && jdoy <= S6_tEnd[i])
+                    {
+                    blue_band[i] =S6_blue_INTP[i]+S6_blue_SLP[i]*jdoy+S6_blue_COS[i]*cos((2.0*pi*jdoy)/365.0)+S6_blue_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S6_blue_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S6_blue_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S6_blue_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S6_blue_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+green_band[i] =S6_green_INTP[i]+S6_green_SLP[i]*jdoy+S6_green_COS[i]*cos((2.0*pi*jdoy)/365.0)+S6_green_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S6_green_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S6_green_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S6_green_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S6_green_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+red_band[i] =S6_red_INTP[i]+S6_red_SLP[i]*jdoy+S6_red_COS[i]*cos((2.0*pi*jdoy)/365.0)+S6_red_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S6_red_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S6_red_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S6_red_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S6_red_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+nir_band[i] =S6_nir_INTP[i]+S6_nir_SLP[i]*jdoy+S6_nir_COS[i]*cos((2.0*pi*jdoy)/365.0)+S6_nir_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S6_nir_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S6_nir_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S6_nir_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S6_nir_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+swir1_band[i] =S6_swir1_INTP[i]+S6_swir1_SLP[i]*jdoy+S6_swir1_COS[i]*cos((2.0*pi*jdoy)/365.0)+S6_swir1_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S6_swir1_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S6_swir1_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S6_swir1_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S6_swir1_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+swir2_band[i] =S6_swir2_INTP[i]+S6_swir2_SLP[i]*jdoy+S6_swir2_COS[i]*cos((2.0*pi*jdoy)/365.0)+S6_swir2_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S6_swir2_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S6_swir2_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S6_swir2_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S6_swir2_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+therm_band[i] =S6_therm_INTP[i]+S6_therm_SLP[i]*jdoy+S6_therm_COS[i]*cos((2.0*pi*jdoy)/365.0)+S6_therm_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S6_therm_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S6_therm_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S6_therm_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S6_therm_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+                    }else if (jdoy >= S7_tStart[i] && jdoy <= S7_tEnd[i])
+                    {
+                    blue_band[i] =S7_blue_INTP[i]+S7_blue_SLP[i]*jdoy+S7_blue_COS[i]*cos((2.0*pi*jdoy)/365.0)+S7_blue_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S7_blue_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S7_blue_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S7_blue_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S7_blue_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+green_band[i] =S7_green_INTP[i]+S7_green_SLP[i]*jdoy+S7_green_COS[i]*cos((2.0*pi*jdoy)/365.0)+S7_green_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S7_green_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S7_green_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S7_green_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S7_green_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+red_band[i] =S7_red_INTP[i]+S7_red_SLP[i]*jdoy+S7_red_COS[i]*cos((2.0*pi*jdoy)/365.0)+S7_red_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S7_red_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S7_red_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S7_red_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S7_red_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+nir_band[i] =S7_nir_INTP[i]+S7_nir_SLP[i]*jdoy+S7_nir_COS[i]*cos((2.0*pi*jdoy)/365.0)+S7_nir_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S7_nir_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S7_nir_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S7_nir_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S7_nir_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+swir1_band[i] =S7_swir1_INTP[i]+S7_swir1_SLP[i]*jdoy+S7_swir1_COS[i]*cos((2.0*pi*jdoy)/365.0)+S7_swir1_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S7_swir1_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S7_swir1_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S7_swir1_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S7_swir1_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+swir2_band[i] =S7_swir2_INTP[i]+S7_swir2_SLP[i]*jdoy+S7_swir2_COS[i]*cos((2.0*pi*jdoy)/365.0)+S7_swir2_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S7_swir2_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S7_swir2_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S7_swir2_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S7_swir2_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+therm_band[i] =S7_therm_INTP[i]+S7_therm_SLP[i]*jdoy+S7_therm_COS[i]*cos((2.0*pi*jdoy)/365.0)+S7_therm_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S7_therm_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S7_therm_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S7_therm_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S7_therm_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+                    }else if (jdoy >= S8_tStart[i] && jdoy <= S8_tEnd[i])
+                    {
+                    blue_band[i] =S8_blue_INTP[i]+S8_blue_SLP[i]*jdoy+S8_blue_COS[i]*cos((2.0*pi*jdoy)/365.0)+S8_blue_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S8_blue_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S8_blue_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S8_blue_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S8_blue_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+green_band[i] =S8_green_INTP[i]+S8_green_SLP[i]*jdoy+S8_green_COS[i]*cos((2.0*pi*jdoy)/365.0)+S8_green_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S8_green_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S8_green_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S8_green_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S8_green_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+red_band[i] =S8_red_INTP[i]+S8_red_SLP[i]*jdoy+S8_red_COS[i]*cos((2.0*pi*jdoy)/365.0)+S8_red_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S8_red_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S8_red_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S8_red_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S8_red_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+nir_band[i] =S8_nir_INTP[i]+S8_nir_SLP[i]*jdoy+S8_nir_COS[i]*cos((2.0*pi*jdoy)/365.0)+S8_nir_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S8_nir_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S8_nir_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S8_nir_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S8_nir_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+swir1_band[i] =S8_swir1_INTP[i]+S8_swir1_SLP[i]*jdoy+S8_swir1_COS[i]*cos((2.0*pi*jdoy)/365.0)+S8_swir1_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S8_swir1_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S8_swir1_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S8_swir1_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S8_swir1_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+swir2_band[i] =S8_swir2_INTP[i]+S8_swir2_SLP[i]*jdoy+S8_swir2_COS[i]*cos((2.0*pi*jdoy)/365.0)+S8_swir2_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S8_swir2_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S8_swir2_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S8_swir2_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S8_swir2_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+therm_band[i] =S8_therm_INTP[i]+S8_therm_SLP[i]*jdoy+S8_therm_COS[i]*cos((2.0*pi*jdoy)/365.0)+S8_therm_SIN[i]*sin((2.0*pi*jdoy)/365.0)+S8_therm_COS2[i]*cos((4.0*pi*jdoy)/365.0)+S8_therm_SIN2[i]*sin((4.0*pi*jdoy)/365.0)+S8_therm_COS3[i]*cos((6.0*pi*jdoy)/365.0)+S8_therm_SIN3[i]*sin((6.0*pi*jdoy)/365.0); 
+                    }
   }
          
          DataFrame out = DataFrame::create(Named("x")=ccdc_df["x"],
@@ -344,4 +595,57 @@ therm_band[i] =S4_therm_INTP[i]+S4_therm_SLP[i]*jdoy+S4_therm_COS[i]*cos((2.0*pi
   return(img)
 }
 
+
+#' Name missing CCDC image bands
+#'
+#' Uses know naming convention to name the bands of a CCDC image exported from Google Earth Engine script in the case that they are missing.
+#' Typically only needed for VRTs and CCDC exports of >5 segments.  
+#' @param ccdc_img (SpatRaster, stars) The CCDC image for which to name bands
+#' @param n_seg (integer) The number of CCDC change segments exported by the Google Earth Engine script (must match ccdc_img) 
+#' @return (SpatRaster) The same CCDC image used as input with missing band names correctly named.   
+#' @export
+name_ccdc_bands<-function(ccdc_img,n_seg)
+{
+  band_names<-c()
+  
+  index<-1
+  for(band in c('blue','green','red','nir','swir1','swir2','therm'))
+  {
+    for(seg in c(1:n_seg))
+    {
+      for(coef in c('INTP','SLP','COS','SIN','COS2','SIN2','COS3','SIN3'))
+      {
+        band_names[index]<-paste0("S",seg,"_",band,"_coef_",coef)
+        index<-index+1
+      }
+    }
+  }
+  
+  for(band in c('blue','green','red','nir','swir1','swir2','therm'))
+  {
+    for(coef in c('RMSE','MAG'))
+    {
+      for(seg in c(1:n_seg))
+      {
+        band_names[index]<-paste0("S",seg,"_",band,"_",coef)
+        index<-index+1
+      }
+    }
+  }
+  
+  
+  
+  for(coef in c('tStart','tEnd','tBreak','changeProb','numObs'))
+  {
+    for(seg in c(1:n_seg))
+    {
+      band_names[index]<-paste0("S",seg,"_",coef)
+      index<-index+1
+    }
+  }
+  
+  names(ccdc_img)<-band_names
+  
+  return(ccdc_img)
+}
 

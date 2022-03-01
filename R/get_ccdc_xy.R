@@ -49,7 +49,7 @@ ccdc_func<-function(julian_date,coef_intp,coef_slp,coef_cos,coef_sin,coef_cos2,c
 #' @return A 2-col matrix with the Julian date time series in the first and the
 #' predicted CCDC time series in the second. 
 #' @export
-get_ccdc_ts <- function(ccdc_img,x_coord,y_coord,epsg,band,n_seg=4)
+get_ccdc_ts <- function(ccdc_img,x_coord,y_coord,epsg,band,n_seg=10)
 {
   
   if(class(terra::rast(ccdc_img))[1]=="SpatRaster")

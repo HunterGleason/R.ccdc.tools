@@ -4,7 +4,7 @@
 \alias{get_ccdc_ts}
 \title{Predict surface reflectance timeseries at a point (X,Y) using CCDC algorithm (Zhu & Woodcock 2014)}
 \usage{
-get_ccdc_ts(ccdc_img, x_coord, y_coord, epsg, band, n_seg = 4)
+get_ccdc_ts(ccdc_img, x_coord, y_coord, epsg, band, n_seg = 10)
 }
 \arguments{
 \item{ccdc_img}{(stars, SpatRaster) A multiband raster of the CCDC output from Google Earth Engine

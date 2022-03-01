@@ -58,7 +58,7 @@ head(ccdc_coefs)
 
 ## Plot synthetic surface reflectance at a pixel location
 
-Below we use *R.ccdc.tools::get_ccdc_ts* to use the [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients to generate the synthetic surface reflectance time series at the pixel that intersects the coordinates above for the *green* and *nir* bands. Any XY coordinate that intersect the raster data can be specified, for any band exported in the CCDC raster. Notice that around ~2018 a noticeable break in both time series in evident, suggesting some type of landscape disturbance likely occurred then.
+Below we use *R.ccdc.tools::get_ccdc_ts* to use the [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients to generate the synthetic surface reflectance time series at the pixel that intersects the coordinates above for the *green* and *nir* bands. Any XY coordinate that intersect the raster data can be specified, for any band exported in the CCDC raster. Notice that around ~1996 a noticeable break in both time series in evident, suggesting some type of landscape disturbance likely occurred then.
 
 ```{r fig.width=6, fig.height=6}
 #Get the green surface reflectance time series (ts) for all 4-segments at the point.
@@ -104,7 +104,6 @@ It can be useful to generate raster with only the [**CCDC**](https://doi.org/10.
 #Get a CCDC image with coefficients for segments occurring during July 15, 2021 (i.e., near present day landscape conditions)
 jul_15_2021<-gen_ccdc_at_jdoy(ccdc_img,"2021-07-15")
 plot(jul_15_2021)
-head(jul_15_2021)
 ```
 
 ## Assemble a category layer
