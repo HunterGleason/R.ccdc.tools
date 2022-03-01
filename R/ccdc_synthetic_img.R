@@ -619,7 +619,7 @@ therm_band[i] =S8_therm_INTP[i]+S8_therm_SLP[i]*jdoy+S8_therm_COS[i]*cos((2.0*pi
 #' @param n_seg (integer) The number of CCDC change segments exported by the Google Earth Engine script (must match ccdc_img) 
 #' @return (SpatRaster) The same CCDC image used as input with missing band names correctly named.   
 #' @export
-name_ccdc_bands<-function(ccdc_img,n_seg)
+name_ccdc_bands<-function(ccdc_img=NULL,n_seg,names_only=F)
 {
   band_names<-c()
   
@@ -658,9 +658,12 @@ name_ccdc_bands<-function(ccdc_img,n_seg)
       index<-index+1
     }
   }
-  
+  if(names_only==F)
+  {
   names(ccdc_img)<-band_names
-  
   return(ccdc_img)
+  }else{
+    return(band_names)
+  }
 }
 
