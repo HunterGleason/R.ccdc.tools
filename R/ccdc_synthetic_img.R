@@ -615,8 +615,9 @@ therm_band[i] =S8_therm_INTP[i]+S8_therm_SLP[i]*jdoy+S8_therm_COS[i]*cos((2.0*pi
 #'
 #' Uses know naming convention to name the bands of a CCDC image exported from Google Earth Engine script in the case that they are missing.
 #' Typically only needed for VRTs and CCDC exports of >5 segments.  
-#' @param ccdc_img (SpatRaster, stars) The CCDC image for which to name bands
-#' @param n_seg (integer) The number of CCDC change segments exported by the Google Earth Engine script (must match ccdc_img) 
+#' @param ccdc_img (SpatRaster, stars) The CCDC image for which to name bands, can be NULL if names_only is True
+#' @param n_seg (integer) The number of CCDC change segments exported by the Google Earth Engine script (must match ccdc_img)
+#' @param names_only (boolean) Indicates if the renamed image should be returned, or just a char vector of band names (default False) 
 #' @return (SpatRaster) The same CCDC image used as input with missing band names correctly named.   
 #' @export
 name_ccdc_bands<-function(ccdc_img=NULL,n_seg,names_only=F)

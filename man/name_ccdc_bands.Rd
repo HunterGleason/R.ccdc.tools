@@ -4,12 +4,14 @@
 \alias{name_ccdc_bands}
 \title{Name missing CCDC image bands}
 \usage{
-name_ccdc_bands(ccdc_img, n_seg)
+name_ccdc_bands(ccdc_img = NULL, n_seg, names_only = F)
 }
 \arguments{
-\item{ccdc_img}{(SpatRaster, stars) The CCDC image for which to name bands}
+\item{ccdc_img}{(SpatRaster, stars) The CCDC image for which to name bands, can be NULL if names_only is True}
 
 \item{n_seg}{(integer) The number of CCDC change segments exported by the Google Earth Engine script (must match ccdc_img)}
+
+\item{names_only}{(boolean) Indicates if the renamed image should be returned, or just a char vector of band names (default False)}
 }
 \value{
 (SpatRaster) The same CCDC image used as input with missing band names correctly named.
