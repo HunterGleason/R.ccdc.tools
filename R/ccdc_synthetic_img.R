@@ -491,7 +491,22 @@ NumericVector S8_therm_COS2 = ccdc_df["S8_therm_coef_COS2"];
 NumericVector S8_therm_SIN2 = ccdc_df["S8_therm_coef_SIN2"]; 
 NumericVector S8_therm_COS3 = ccdc_df["S8_therm_coef_COS3"]; 
 NumericVector S8_therm_SIN3 = ccdc_df["S8_therm_coef_SIN3"]; 
-
+NumericVector S1_tStart = ccdc_df["S1_tStart"];
+NumericVector S1_tEnd = ccdc_df["S1_tEnd"];
+NumericVector S2_tStart = ccdc_df["S2_tStart"];
+NumericVector S2_tEnd = ccdc_df["S2_tEnd"];
+NumericVector S3_tStart = ccdc_df["S3_tStart"];
+NumericVector S3_tEnd = ccdc_df["S3_tEnd"];
+NumericVector S4_tStart = ccdc_df["S4_tStart"];
+NumericVector S4_tEnd = ccdc_df["S4_tEnd"];
+NumericVector S5_tStart = ccdc_df["S5_tStart"];
+NumericVector S5_tEnd = ccdc_df["S5_tEnd"];
+NumericVector S6_tStart = ccdc_df["S6_tStart"];
+NumericVector S6_tEnd = ccdc_df["S6_tEnd"];
+NumericVector S7_tStart = ccdc_df["S7_tStart"];
+NumericVector S7_tEnd = ccdc_df["S7_tEnd"];
+NumericVector S8_tStart = ccdc_df["S8_tStart"];
+NumericVector S8_tEnd = ccdc_df["S8_tEnd"];
                   
                   
                     for(int i = 0; i < n; ++i){
