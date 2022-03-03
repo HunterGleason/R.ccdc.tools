@@ -2,11 +2,11 @@
 
 export("%>%")
 export(ccdc_func)
-export(date_to_jday)
+export(date_to_jdoy)
 export(gen_ccdc_at_jdoy)
 export(gen_ccdc_synthetic_img)
 export(get_ccdc_ts)
-export(jday_to_date)
+export(jdoy_to_date)
 export(name_ccdc_bands)
 export(plot_ccdc_by_catg)
 export(plot_ccdc_ts_bypoly)

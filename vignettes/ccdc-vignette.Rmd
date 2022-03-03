@@ -33,14 +33,17 @@ library(RSAGA)
 
 ## Load example CCDC output from package data, explore data
 
-Below we load in from *R.ccdc.tools* a CCDC image (exported from [**GEE-Script**](https://code.earthengine.google.com/054860fe5914f0851080b26da27b1120)) for a small area of interest, we use the *R.ccdc.tools::name_ccdc_bands* function to rename the bands, as they are lost during export. This CCDC raster contains the  [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients for each segment, in this case up to 4 segments were exported using the [**CCDC API**](https://github.com/parevalo/gee-ccdc-tools/blob/master/docs/index.rst). The Landsat blue, green, red, near-infrared, shortwave-infrared 1, shortwave-infrared 2 and thermal band coefficients are included as *blue,green,red,nir,swir1,swir2 and therm*. In the code below we define a random point within the AOI, and extract the [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) raster values at that location to illustrate what attributes are present in the output image of [**GEE-Script**](https://code.earthengine.google.com/054860fe5914f0851080b26da27b1120). For instance, *S1_green_coef_INTP* is the green band intercept coefficient for the first segment in the surface reflectance time series at the XY location 1796174, 609555. Notice additional attributes related to change detection and the individual segments are also present in the raster data as additional bands.  
+Below we load in from *R.ccdc.tools* a CCDC image (exported from [**GEE-Script**](https://code.earthengine.google.com/054860fe5914f0851080b26da27b1120)) for a small area of interest, we use the *R.ccdc.tools::name_ccdc_bands* function to rename the bands, as they are lost during export. This CCDC raster contains the  [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients for each segment, in this case up to 4 segments were exported using the [**CCDC API**](https://github.com/parevalo/gee-ccdc-tools/blob/master/docs/index.rst). The Landsat blue, green, red, near-infrared, shortwave-infrared 1, shortwave-infrared 2 and thermal band coefficients are included as *blue,green,red,nir,swir1,swir2 and therm*. In the code below we define a random point within the AOI, and extract the [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) raster values at that location to illustrate what attributes are present in the output image of [**GEE-Script**](https://code.earthengine.google.com/054860fe5914f0851080b26da27b1120). For instance, *S1_green_coef_INTP* is the green band intercept coefficient for the first segment in the surface reflectance time series at the XY location 1794834, 609232. Notice additional attributes related to change detection and the individual segments are also present in the raster data as additional bands.  
 
 ```{r fig.width=6, fig.height=6}
-ccdc_img = exampleData
+ccdc_img = rast(exampleData)
+ccdc_img<-name_ccdc_bands(ccdc_img,8)
+ccdc_img<-st_as_stars(ccdc_img)
+
 
 #Arbitrary example coordinates (EPSG:3005) within the image bounds
-x_coord<-1796174
-y_coord<-609555
+x_coord<-1794834
+y_coord<-609232
 epsg<-3005
 
 #Extract the model coefficients at the point from the CCDC image
@@ -57,12 +60,9 @@ head(ccdc_coefs)
 
 ## Plot synthetic surface reflectance at a pixel location
 
-Below we use *R.ccdc.tools::get_ccdc_ts* to use the [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients to generate the synthetic surface reflectance time series at the pixel that intersects the coordinates above for the *green* and *nir* bands. Any XY coordinate that intersect the raster data can be specified, for any band exported in the CCDC raster. Notice that the time series has multiple breakpoints in both the green and nir bands since 1984, this point happens to be withing a heavily harvested location. 
+Below we use *R.ccdc.tools::get_ccdc_ts* to use the [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) coefficients to generate the synthetic surface reflectance time series at the pixel that intersects the coordinates above for the *green* and *nir* bands. Any XY coordinate that intersect the raster data can be specified, for any band exported in the CCDC raster. Notice that the time series has a breakpoint at ~2018 in both the green and nir bands indicating a landcover change at this location occurred then. 
 
 ```{r fig.width=6, fig.height=6}
-#Name the CCDC bands as names are lost during export from Earth Engine, must provide the correct number of segments for the exported CCDC image 
-ccdc_img<-name_ccdc_bands(rast(ccdc_img),8)
-
 
 #Get the green surface reflectance time series (ts) for all 8-segments at the point.
 ts_green<-get_ccdc_ts(ccdc_img,x_coord,y_coord,epsg,'green',8)
@@ -71,19 +71,17 @@ ts_green<-get_ccdc_ts(ccdc_img,x_coord,y_coord,epsg,'green',8)
 ts_nir<-get_ccdc_ts(ccdc_img,x_coord,y_coord,epsg,'nir',8)
 
 #Plot the time series 
-plot(jday_to_date(ts_green[,'jdoy_vec']),ts_green[,'ts'],type='l',xlab='Date',ylab='Green Band Surface Reflectance')
-plot(jday_to_date(ts_nir[,'jdoy_vec']),ts_nir[,'ts'],type='l',xlab='Date',ylab='NIR Band Surface Reflectance')
+plot(jdoy_to_date(ts_green[,'jdoy_vec']),ts_green[,'ts'],type='l',xlab='Date',ylab='Green Band Surface Reflectance')
+plot(jdoy_to_date(ts_nir[,'jdoy_vec']),ts_nir[,'ts'],type='l',xlab='Date',ylab='NIR Band Surface Reflectance')
 ```
 
 ## Generate a synthentic CCDC image for a given date
 
-In the code below we apply the *R.ccdc.tools::gen_synthetic_img* for generating and plotting synthetic RGB Landsat scenes at several consecutive dates using the CCDC coefficients found in *ccdc_img*.Note that these images represent the predicted surface reflectance values and NOT the measured surface reflectance values, although they should agree closley.   
+In the code below we apply the *R.ccdc.tools::gen_synthetic_img* for generating and plotting synthetic RGB Landsat scenes for several consecutive years on July 15 using the CCDC coefficients found in *ccdc_img*.Note that these images represent the predicted surface reflectance values and **NOT** the measured surface reflectance values, although they should agree closely. Landcover changes with time are apparent in the time series.    
 
 ```{r fig.width=6, fig.height=6}
-start_date<-date_to_jday("1995-01-01")
-end_date<-date_to_jday("1996-01-01")
-dates<-as.character(jday_to_date(seq(start_date,end_date,60)))
 
+dates<-paste0(seq(1986,2020,6),"-07-15")
 
 for(date in dates)
 {
@@ -128,25 +126,25 @@ ggplot()+
 
 ## Comparing seasonal surface reflectance curves by landcover category 
 
-One of the neat aspects of the [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) is it can be used to visually compare surface reflectance signatures for different landcover types, using the *jul_15_2021* raster as input, the code bellow illustrate the application of several *R.ccdc.tools* functions that make creating such plots very simple. The function *R.ccdc.tools::plot_ccdc_ts_bypoly* selects random sample locations of specified N within each polygon category, and for each sample plots the synthetic surface reflectance from the date of the input image up to any number of days, typically one or two years into the future. The function *R.ccdc.tools::plot_ccdc_ts_quartiles* is very similar, but uses all available pixels and plots the daily 25, 50 and 75th percentile for each category instead of each individual time series, which is illustrated below for the near-infrared and shortwave-infrared 2 Landsat bands.      
+One of the neat aspects of the [**CCDC**](https://doi.org/10.1016/j.rse.2014.01.011) is it can be used to visually compare surface reflectance signatures for different landcover types, using the *jul_15_2021* raster as input, the code bellow illustrate the application of several *R.ccdc.tools* functions that make creating such plots very simple. The function *R.ccdc.tools::plot_ccdc_ts_bypoly* selects random sample locations of specified N within each polygon category, and for each sample plots the synthetic surface reflectance from the date of the input image up to any number of days, typically one or two years into the future. The function *R.ccdc.tools::plot_ccdc_ts_quartiles* is very similar, but uses all available pixels and plots the daily 25, 50 and 75th percentile for each category instead of each individual time series, which is illustrated below for the green and near-infrared Landsat bands.      
 
 ```{r fig.width=6, fig.height=6}
-#Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the near-infrared band ('nir') over a 730 day period 
+#Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the green band ('green') over a 730 day period 
+plot_ccdc_ts_bypoly(jul_15_2021,"2021-07-15",landcover,'landcover',730,'green',60)
+
+#Same plot as above, only showing quartiles
+plot_ccdc_ts_quartiles(jul_15_2021,"2021-07-15",landcover,'landcover',730,'green')
+
+#Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the near-infrared band ('nir') over a 720 day period 
 plot_ccdc_ts_bypoly(jul_15_2021,"2021-07-15",landcover,'landcover',730,'nir',60)
 
 #Same plot as above, only showing quartiles
 plot_ccdc_ts_quartiles(jul_15_2021,"2021-07-15",landcover,'landcover',730,'nir')
-
-#Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the shortwave infrared band 2 ('swir2') over a 720 day period 
-plot_ccdc_ts_bypoly(jul_15_2021,"2021-07-15",landcover,'landcover',730,'swir2',60)
-
-#Same plot as above, only showing quartiles
-plot_ccdc_ts_quartiles(jul_15_2021,"2021-07-15",landcover,'landcover',730,'swir2')
 ```
 
 ## Comparing seasonal surface reflectance curves by landcover category (large areas of interest)
 
-Although we use the same CCDC image here, often the size of the exported [**GEE-Script**](https://code.earthengine.google.com/054860fe5914f0851080b26da27b1120) raster can be large and many polygons may be used for exploring surface reflectance signatures between categories. The *R.ccdc.tools::plot_ccdc_by_catg* function achieves essentially the same result as *R.ccdc.tools::plot_ccdc_ts_quartiles*, but uses a random sample like *plot_ccdc_ts_bypoly* by first calling *R.ccdc.tools::sample_ccdc_by_catg*, which uses [**SAGA-GIS**](https://saga-gis.sourceforge.io/en/index.html) with [**RSAGA**](https://cran.r-project.org/web/packages/RSAGA/index.html) for more efficient computation. It also returns the computed surface reflectance data back as a data.frame. Because SAGA-GIS cannot use R objects directly, they must first be written to disk. The two functions are applied below with 300 random samples locations (total, constrained to polygons) with a minimum distance of 50 m between random locations, the result is a list with the raw-data, plot and legend crosswalk, and are also shown. Plots for the *nir* and *swir2* bands are generated as an example. 
+Although we use the same CCDC image here, often the size of the exported [**GEE-Script**](https://code.earthengine.google.com/054860fe5914f0851080b26da27b1120) raster can be large and many polygons may be used for exploring surface reflectance signatures between categories. The *R.ccdc.tools::plot_ccdc_by_catg* function achieves essentially the same result as *R.ccdc.tools::plot_ccdc_ts_quartiles*, but uses a random sample like *plot_ccdc_ts_bypoly* by first calling *R.ccdc.tools::sample_ccdc_by_catg*, which uses [**SAGA-GIS**](https://saga-gis.sourceforge.io/en/index.html) with [**RSAGA**](https://cran.r-project.org/web/packages/RSAGA/index.html) for more efficient computation. It also returns the computed surface reflectance data back as a data.frame. Because SAGA-GIS cannot use R objects directly, they must first be written to disk. The two functions are applied below with 300 random samples locations (total, constrained to polygons) with a minimum distance of 50 m between random locations, the result is a list with the raw-data, plot and legend crosswalk, and are also shown. Plots for the *green* and *nir* bands are generated as an example. 
 
 ```{r fig.width=6, fig.height=6, message=FALSE, warning=FALSE, results = FALSE}
 
@@ -158,12 +156,12 @@ writeVector(landcover,file.path(tempdir(),"landcover.shp"))
 sampled<-sample_ccdc_by_catg(file.path(tempdir(),"landcover.shp"),file.path(tempdir(),"jul_15_2021.tif"),300,50,rsaga.env())
 head(sampled)
 
-#Use he result from above and create a plot from them for near-infrared band 
-sampled_ts<-plot_ccdc_by_catg(sampled,"2021-07-15","landcover","nir")
+#Use he result from above and create a plot from them for green band 
+sampled_ts<-plot_ccdc_by_catg(sampled,"2021-07-15","landcover","green")
 sampled_ts
 
-#Use he result from above and create a plot from them for shortwave-infrared 2 band 
-sampled_ts<-plot_ccdc_by_catg(sampled,"2021-07-15","landcover","swir2")
+#Use he result from above and create a plot from them for near-infrared band 
+sampled_ts<-plot_ccdc_by_catg(sampled,"2021-07-15","landcover","nir")
 sampled_ts
 ```
 

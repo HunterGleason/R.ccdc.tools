@@ -50,10 +50,10 @@ plot_ccdc_ts_bypoly<-function(ccdc_img,ccdc_img_date,zone_poly,catg_col,days=730
   cos3<-paste0(band,"_COS3")
   sin3<-paste0(band,"_SIN3")
   
-  ccdc_img_date<-date_to_jday(ccdc_img_date)
+  ccdc_img_date<-date_to_jdoy(ccdc_img_date)
   ts_x<-c(ccdc_img_date:(ccdc_img_date + days))
   
-  plot(jday_to_date(ts_x),ccdc_func(ts_x,
+  plot(jdoy_to_date(ts_x),ccdc_func(ts_x,
                  zonal_vals[i,intp],
                  zonal_vals[i,slp],
                  zonal_vals[i,cos],
@@ -70,7 +70,7 @@ plot_ccdc_ts_bypoly<-function(ccdc_img,ccdc_img_date,zone_poly,catg_col,days=730
   
   for(i in c(2:nrow(zonal_vals)))
   {
-    lines(jday_to_date(ts_x),ccdc_func(ts_x,
+    lines(jdoy_to_date(ts_x),ccdc_func(ts_x,
                     zonal_vals[i,intp],
                     zonal_vals[i,slp],
                     zonal_vals[i,cos],
@@ -111,7 +111,7 @@ plot_ccdc_ts_quartiles<-function (ccdc_img,ccdc_img_date,zone_poly, catg_col, da
     ccdc_img <- terra::rast(ccdc_img)
   }
   
-  ccdc_img_date<-date_to_jday(ccdc_img_date)
+  ccdc_img_date<-date_to_jdoy(ccdc_img_date)
   
   zonal_vals <- terra::extract(ccdc_img, zone_poly)
   zonal_vals$type <- as.factor(as.data.frame(zone_poly)[, catg_col][zonal_vals$ID])
@@ -160,7 +160,7 @@ plot_ccdc_ts_quartiles<-function (ccdc_img,ccdc_img_date,zone_poly, catg_col, da
   p75<-aggregate(ts,by=list(ts[,ncol(ts)]),quantile,probs=c(.75))
   
   firstplot<-T
-  ts_x<-jday_to_date(ts_x)
+  ts_x<-jdoy_to_date(ts_x)
   
   for(j in unique(ts[,ncol(ts)]))
   {
@@ -239,6 +239,7 @@ sample_ccdc_by_catg<-function(polygons_pth,ccdc_img_pth,pnts_count,sep_dist,env)
                 "blue_SIN2",
                 "blue_COS3",
                 "blue_SIN3",
+                "blue_RMSE",
                 "green_INTP",
                 "green_SLP",
                 "green_COS",
@@ -247,6 +248,7 @@ sample_ccdc_by_catg<-function(polygons_pth,ccdc_img_pth,pnts_count,sep_dist,env)
                 "green_SIN2",
                 "green_COS3",
                 "green_SIN3",
+                "green_RMSE",
                 "red_INTP",
                 "red_SLP",
                 "red_COS",
@@ -255,6 +257,7 @@ sample_ccdc_by_catg<-function(polygons_pth,ccdc_img_pth,pnts_count,sep_dist,env)
                 "red_SIN2",
                 "red_COS3",
                 "red_SIN3",
+                "red_RMSE",
                 "nir_INTP",
                 "nir_SLP",
                 "nir_COS",
@@ -263,6 +266,7 @@ sample_ccdc_by_catg<-function(polygons_pth,ccdc_img_pth,pnts_count,sep_dist,env)
                 "nir_SIN2",
                 "nir_COS3",
                 "nir_SIN3",
+                "nir_RMSE",
                 "swir1_INTP",
                 "swir1_SLP",
                 "swir1_COS",
@@ -271,6 +275,7 @@ sample_ccdc_by_catg<-function(polygons_pth,ccdc_img_pth,pnts_count,sep_dist,env)
                 "swir1_SIN2",
                 "swir1_COS3",
                 "swir1_SIN3",
+                "swir1_RMSE",
                 "swir2_INTP",
                 "swir2_SLP",
                 "swir2_COS",
@@ -279,6 +284,7 @@ sample_ccdc_by_catg<-function(polygons_pth,ccdc_img_pth,pnts_count,sep_dist,env)
                 "swir2_SIN2",
                 "swir2_COS3",
                 "swir2_SIN3",
+                "swir2_RMSE",
                 "therm_INTP",
                 "therm_SLP",
                 "therm_COS",
@@ -287,10 +293,11 @@ sample_ccdc_by_catg<-function(polygons_pth,ccdc_img_pth,pnts_count,sep_dist,env)
                 "therm_SIN2",
                 "therm_COS3",
                 "therm_SIN3",
+                "therm_RMSE",
                 "tStart",
                 "tEnd") 
   
-  colnames(ccdc_img_at_pnts)[c(offset:61)]<-band_names
+  colnames(ccdc_img_at_pnts)[c(offset:(ncol(ccdc_img_at_pnts)-1))]<-band_names
   
   
   ccdc_img_at_pnts<-as.data.frame(ccdc_img_at_pnts)
@@ -356,7 +363,7 @@ plot_ccdc_by_catg<-function(ccdc_img_at_pnts,ccdc_img_date,catg_field,band,days=
   cos3 <- ccdc_img_at_pnts[,paste0(band,"_COS3")]
   sin3 <- ccdc_img_at_pnts[,paste0(band,"_SIN3")]
   
-  ccdc_img_date<-date_to_jday(ccdc_img_date)
+  ccdc_img_date<-date_to_jdoy(ccdc_img_date)
   
   sr_mat<-predict_sr(ccdc_img_date,days,factor_vector,intp,slp,cos,sin,cos2,sin2,cos3,sin3)
   sr_mat<-as.data.frame(sr_mat)
@@ -371,7 +378,7 @@ plot_ccdc_by_catg<-function(ccdc_img_at_pnts,ccdc_img_date,catg_field,band,days=
   
   
   sr_mat$catg=as.factor(sr_mat$catg)
-  sr_mat$jdoy<-jday_to_date(sr_mat$jdoy)
+  sr_mat$jdoy<-jdoy_to_date(sr_mat$jdoy)
   
   median_sr<-sr_mat %>% 
     dplyr::group_by(jdoy,catg) %>%

@@ -4,10 +4,10 @@
 #' Predict surface reflectance using CCDC algorithm (Zhu & Woodcock 2014) 
 #'
 #' For a given Julian date, and set of coefficients, this function returns
-#' the calculated surface reflectance value using the full model described in 
+#' the calculated surface reflectance value using the full CCDC model described in 
 #' Zhu et al 2015. 
 #'
-#' @param julian_date Julian date for which to predict surface reflectance
+#' @param jdoy Julian date for which to predict surface reflectance
 #' @param coef_intp Coefficient for overall values for the ith Landsat Band
 #' @param coef_slp Coefficient for inter-annual change for the ith Landsat Band
 #' @param coef_cos Coefficient for intra-annual change for the ith Landsat Band (1st harmonic)
@@ -18,16 +18,16 @@
 #' @param coef_sin3 Coefficient for intra-annual change for the ith Landsat Band (3rd harmonic)  
 #' @return A floating point value for the calculated surface reflectance 
 #' @export
-ccdc_func<-function(julian_date,coef_intp,coef_slp,coef_cos,coef_sin,coef_cos2,coef_sin2,coef_cos3,coef_sin3)
+ccdc_func<-function(jdoy,coef_intp,coef_slp,coef_cos,coef_sin,coef_cos2,coef_sin2,coef_cos3,coef_sin3)
 {
   val<-coef_intp+
-    coef_slp*julian_date+
-    coef_cos*cos((2*pi*julian_date)/365.25)+
-    coef_sin*sin((2*pi*julian_date)/365.25)+
-    coef_cos2*cos(((4*pi*julian_date)/365.25))+
-    coef_sin2*sin(((4*pi*julian_date)/365.25))+
-    coef_cos3*cos(((6*pi*julian_date)/365.25))+
-    coef_sin3*sin(((6*pi*julian_date)/365.25))
+    coef_slp*jdoy+
+    coef_cos*cos((2*pi*jdoy)/365.25)+
+    coef_sin*sin((2*pi*jdoy)/365.25)+
+    coef_cos2*cos(((4*pi*jdoy)/365.25))+
+    coef_sin2*sin(((4*pi*jdoy)/365.25))+
+    coef_cos3*cos(((6*pi*jdoy)/365.25))+
+    coef_sin3*sin(((6*pi*jdoy)/365.25))
   
   return(as.numeric(val))
 }

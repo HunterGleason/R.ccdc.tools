@@ -2,7 +2,7 @@ Package: R.ccdc.tools
 Title: Tools for Working with CCDC Images in R
 Version: 1.0.0
 Authors@R: 
-    person("Hunter", "Gleason", , "Hunter.Gleason@gov.bc.ca.com", role = c("aut", "cre"),
+    person("Hunter", "Gleason", , "Hunter.Gleason@alumni.unbc.ca", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: This package provides simple extraction tools for getting synthetic
   surface reflectance data from Continuous Change Detection and Classification (CCDC)

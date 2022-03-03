@@ -5,7 +5,7 @@
 \title{Predict surface reflectance using CCDC algorithm (Zhu & Woodcock 2014)}
 \usage{
 ccdc_func(
-  julian_date,
+  jdoy,
   coef_intp,
   coef_slp,
   coef_cos,
@@ -17,7 +17,7 @@ ccdc_func(
 )
 }
 \arguments{
-\item{julian_date}{Julian date for which to predict surface reflectance}
+\item{jdoy}{Julian date for which to predict surface reflectance}
 
 \item{coef_intp}{Coefficient for overall values for the ith Landsat Band}
 
@@ -40,6 +40,6 @@ A floating point value for the calculated surface reflectance
 }
 \description{
 For a given Julian date, and set of coefficients, this function returns
-the calculated surface reflectance value using the full model described in
+the calculated surface reflectance value using the full CCDC model described in
 Zhu et al 2015.
 }

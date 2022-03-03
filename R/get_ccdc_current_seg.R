@@ -13,7 +13,7 @@
 gen_ccdc_at_jdoy<-function(ccdc_img,date)
 {
   
-  jdoy<-date_to_jday(date)
+  jdoy<-date_to_jdoy(date)
   
   if(class(ccdc_img)=="stars")
   {
@@ -146,17 +146,17 @@ gen_ccdc_at_jdoy<-function(ccdc_img,date)
 #' @param date (Date) A R Date object to convert to Julian date.
 #' @return (integer) A integer representing the Julian date (i.e., days since '0000-01-01')
 #' @export
-date_to_jday<-function(date) 
+date_to_jdoy<-function(date) 
 {
   as.numeric(difftime(as.Date(date),as.Date("0001-01-01 00:00:00"),tz='UTC'))
 }
 
 #' Simple function for converting a Julian date to Date.
 #'
-#' @param jday (integer) Julian date to convert to Date.
+#' @param jdoy (integer) Julian date to convert to Date.
 #' @return (Date) A Date corresponding to provided Julian date at UTC. 
 #' @export
-jday_to_date<-function(jday)
+jdoy_to_date<-function(jdoy)
 {
-  as.Date(jday,origin = '0001-01-01 00:00:00 UTC')
+  as.Date(jdoy,origin = '0001-01-01 00:00:00 UTC')
 }

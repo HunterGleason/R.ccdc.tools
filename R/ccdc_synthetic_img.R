@@ -12,7 +12,7 @@
 gen_ccdc_synthetic_img<-function(ccdc_img,date,orig_crs=NULL)
 {
   
-  jdoy<-date_to_jday(date)
+  jdoy<-date_to_jdoy(date)
   
   if(class(ccdc_img)=="stars")
   {
