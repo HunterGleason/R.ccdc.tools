@@ -9,7 +9,8 @@ plot_ccdc_by_catg(
   ccdc_img_date,
   catg_field,
   band,
-  days = 730
+  days = 730,
+  med_only = F
 )
 }
 \arguments{
@@ -23,6 +24,8 @@ plot_ccdc_by_catg(
 'nir', 'swir1','swir2' or 'therm'.}
 
 \item{days}{(integer) Number of days to predict surface reflectance from the CCDC image data ('ccdc_img_date').}
+
+\item{med_only}{(boolean) When true, only median surface reflectance values are plotted by category}
 }
 \value{
 (List) A data.frame with all data used for plot generation ('srdata'), a 'ggplot' object ('srplot'), and a data.frame with the legend codes cross-walk ('crosswalk').
