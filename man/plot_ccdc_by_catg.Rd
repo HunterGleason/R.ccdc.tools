@@ -10,7 +10,8 @@ plot_ccdc_by_catg(
   catg_field,
   band,
   days = 730,
-  med_only = F
+  med_only = F,
+  ylim = c(0, 1)
 )
 }
 \arguments{
@@ -26,6 +27,8 @@ plot_ccdc_by_catg(
 \item{days}{(integer) Number of days to predict surface reflectance from the CCDC image data ('ccdc_img_date').}
 
 \item{med_only}{(boolean) When true, only median surface reflectance values are plotted by category}
+
+\item{ylim}{(numeric) Vector of length 2 defining the Y-Axis limits, defaults to c(0,1)}
 }
 \value{
 (List) A data.frame with all data used for plot generation ('srdata'), a 'ggplot' object ('srplot'), and a data.frame with the legend codes cross-walk ('crosswalk').

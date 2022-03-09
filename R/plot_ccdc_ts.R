@@ -319,10 +319,11 @@ sample_ccdc_by_catg<-function(polygons_pth,ccdc_img_pth,pnts_count,sep_dist,env)
 #' @param band (character) The name of the band for which to forecast CCDC surface reflectance time series. One of 'blue', 'green', 'red'
 #' 'nir', 'swir1','swir2' or 'therm'.
 #' @param days (integer) Number of days to predict surface reflectance from the CCDC image data ('ccdc_img_date').
-#' @param med_only (boolean) When true, only median surface reflectance values are plotted by category  
+#' @param med_only (boolean) When true, only median surface reflectance values are plotted by category
+#' @param ylim (numeric) Vector of length 2 defining the Y-Axis limits, defaults to c(0,1)  
 #' @return (List) A data.frame with all data used for plot generation ('srdata'), a 'ggplot' object ('srplot'), and a data.frame with the legend codes cross-walk ('crosswalk').
 #' @export
-plot_ccdc_by_catg<-function(ccdc_img_at_pnts,ccdc_img_date,catg_field,band,days=730,med_only=F)
+plot_ccdc_by_catg<-function(ccdc_img_at_pnts,ccdc_img_date,catg_field,band,days=730,med_only=F,ylim=c(0,1))
 {
   
   Rcpp::cppFunction('NumericMatrix predict_sr(int img_date,int days,NumericVector catg, NumericVector coef_intp,NumericVector coef_slp,NumericVector coef_cos,NumericVector coef_sin,NumericVector coef_cos2,NumericVector coef_sin2,NumericVector coef_cos3,NumericVector coef_sin3){
@@ -403,14 +404,16 @@ plot_ccdc_by_catg<-function(ccdc_img_at_pnts,ccdc_img_date,catg_field,band,days=
     ggplot2::xlab("Date")+
     ggplot2::ylab(paste0(band," Surface Reflectance"))+
     ggplot2::labs(color = "Category")+
-    ggplot2::theme_classic()
+    ggplot2::theme_classic()+
+    ggplot2::ylim(ylim)
   }else{
     gg<-ggplot2::ggplot()+
       ggplot2::geom_line(data=median_sr,ggplot2::aes(x=jdoy,y=sr,color=catg),linetype=1)+
       ggplot2::xlab("Date")+
       ggplot2::ylab(paste0(band," Surface Reflectance"))+
       ggplot2::labs(color = "Category")+
-      ggplot2::theme_classic()
+      ggplot2::theme_classic()+
+      ggplot2::ylim(ylim)
   }
   
   
