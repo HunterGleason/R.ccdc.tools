@@ -398,7 +398,7 @@ ccdc_ndmi_stats<-function(ccdc_img,start_date,end_date,crs=NULL)
 }')
   
   
-  smry<-ccdc_ndmi_summary(ccdc_img,img,sdt,edt)
+  smry<-ccdc_ndmi_summary(ccdc_img,sdt,edt)
   
   smry<-terra::rast(smry,type="xyz")
   
