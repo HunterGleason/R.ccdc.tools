@@ -19,5 +19,5 @@ specified Julian date. If the date is very recent, some data may be missing.
 For pixel locations where change has occurred (number of segments >1) this function returns
 the CCDC model coefficients associated with the segment that corresponds in time with the specified Julian date,
 as well as the start date of the segment as a Julian date. If there is only one segment (no change), returns coefficients
-for the that segment. !!Assumes that up to four segments may exist (see Earth Engine script)!!
+for the that segment. !!Assumes that up to eight segments may exist (see Earth Engine script)!!
 }

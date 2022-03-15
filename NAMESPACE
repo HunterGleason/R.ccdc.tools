@@ -2,6 +2,7 @@
 
 export("%>%")
 export(ccdc_func)
+export(ccdc_ndmi_stats)
 export(date_to_jdoy)
 export(gen_ccdc_at_jdoy)
 export(gen_ccdc_synthetic_img)
