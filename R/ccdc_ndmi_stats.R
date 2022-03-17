@@ -23,7 +23,7 @@ ccdc_ndmi_stats<-function(ccdc_img,start_date,end_date,crs=NULL)
     ccdc_img<-terra::rast(ccdc_img)
   }
   
-  if(!is.null(crs))
+  if(is.null(crs))
   {
     crs<-terra::crs(ccdc_img)
   }
@@ -46,10 +46,10 @@ ccdc_ndmi_stats<-function(ccdc_img,start_date,end_date,crs=NULL)
     NumericVector ndwi_min ( n );
     NumericVector ndwi_max ( n );
     NumericVector ndwi_med ( n );
-    NumericVector ndmi_jdoy_max ( n );
-    NumericVector ndmi_jdoy_min ( n );
-    NumericVector ndwi_jdoy_max ( n );
-    NumericVector ndwi_jdoy_min ( n );
+    IntegerVector ndmi_jdoy_max ( n );
+    IntegerVector ndmi_jdoy_min ( n );
+    IntegerVector ndwi_jdoy_max ( n );
+    IntegerVector ndwi_jdoy_min ( n );
 
 
 
@@ -245,22 +245,22 @@ ccdc_ndmi_stats<-function(ccdc_img,start_date,end_date,crs=NULL)
     NumericVector S8_swir1_SIN2 = ccdc_df["S8_swir1_coef_SIN2"];
     NumericVector S8_swir1_COS3 = ccdc_df["S8_swir1_coef_COS3"];
     NumericVector S8_swir1_SIN3 = ccdc_df["S8_swir1_coef_SIN3"];
-    NumericVector S1_tStart = ccdc_df["S1_tStart"];
-    NumericVector S1_tEnd = ccdc_df["S1_tEnd"];
-    NumericVector S2_tStart = ccdc_df["S2_tStart"];
-    NumericVector S2_tEnd = ccdc_df["S2_tEnd"];
-    NumericVector S3_tStart = ccdc_df["S3_tStart"];
-    NumericVector S3_tEnd = ccdc_df["S3_tEnd"];
-    NumericVector S4_tStart = ccdc_df["S4_tStart"];
-    NumericVector S4_tEnd = ccdc_df["S4_tEnd"];
-    NumericVector S5_tStart = ccdc_df["S5_tStart"];
-    NumericVector S5_tEnd = ccdc_df["S5_tEnd"];
-    NumericVector S6_tStart = ccdc_df["S6_tStart"];
-    NumericVector S6_tEnd = ccdc_df["S6_tEnd"];
-    NumericVector S7_tStart = ccdc_df["S7_tStart"];
-    NumericVector S7_tEnd = ccdc_df["S7_tEnd"];
-    NumericVector S8_tStart = ccdc_df["S8_tStart"];
-    NumericVector S8_tEnd = ccdc_df["S8_tEnd"];
+    IntegerVector S1_tStart = ccdc_df["S1_tStart"];
+    IntegerVector S1_tEnd = ccdc_df["S1_tEnd"];
+    IntegerVector S2_tStart = ccdc_df["S2_tStart"];
+    IntegerVector S2_tEnd = ccdc_df["S2_tEnd"];
+    IntegerVector S3_tStart = ccdc_df["S3_tStart"];
+    IntegerVector S3_tEnd = ccdc_df["S3_tEnd"];
+    IntegerVector S4_tStart = ccdc_df["S4_tStart"];
+    IntegerVector S4_tEnd = ccdc_df["S4_tEnd"];
+    IntegerVector S5_tStart = ccdc_df["S5_tStart"];
+    IntegerVector S5_tEnd = ccdc_df["S5_tEnd"];
+    IntegerVector S6_tStart = ccdc_df["S6_tStart"];
+    IntegerVector S6_tEnd = ccdc_df["S6_tEnd"];
+    IntegerVector S7_tStart = ccdc_df["S7_tStart"];
+    IntegerVector S7_tEnd = ccdc_df["S7_tEnd"];
+    IntegerVector S8_tStart = ccdc_df["S8_tStart"];
+    IntegerVector S8_tEnd = ccdc_df["S8_tEnd"];
 
 
     for ( int i = 0; i < n; ++i ) {
@@ -268,7 +268,7 @@ ccdc_ndmi_stats<-function(ccdc_img,start_date,end_date,crs=NULL)
         NumericVector ndmi_ts ( jdoy_end-jdoy_start );
         NumericVector ndwi_ts ( jdoy_end-jdoy_start );
         int day = 0;
-        for ( int jdoy = jdoy_start; jdoy<=jdoy_end; jdoy++ ) {
+        for ( int jdoy = jdoy_start; jdoy<jdoy_end; jdoy++ ) {
             if ( jdoy >= S1_tStart[i] && jdoy <= S1_tEnd[i] ) {
 
 
