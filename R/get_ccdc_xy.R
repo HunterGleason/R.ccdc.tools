@@ -52,9 +52,9 @@ ccdc_func<-function(jdoy,coef_intp,coef_slp,coef_cos,coef_sin,coef_cos2,coef_sin
 get_ccdc_ts <- function(ccdc_img,x_coord,y_coord,epsg,band,n_seg=8)
 {
   
-  if(class(terra::rast(ccdc_img))[1]=="SpatRaster")
+  if(class(ccdc_img)=="stars")
   {
-    ccdc_img<-stars::st_as_stars(ccdc_img)
+    ccdc_img<-terra::rast(ccdc_img)
   }
   
   DF <- data.frame(
@@ -62,14 +62,9 @@ get_ccdc_ts <- function(ccdc_img,x_coord,y_coord,epsg,band,n_seg=8)
     y=c(y_coord))
   
   
-  DF_sf = sf::st_as_sf(DF, coords = c("x", "y"), 
-                   crs = sf::st_crs(epsg), agr = "constant")
   
-  
-  extracted<-sf::st_as_sf(stars::st_extract(ccdc_img,DF_sf))
-  
-  
-  ccdc_coefs<-as.data.frame(extracted)
+  ccdc_coefs<-terra::extract(x=ccdc_img,y=DF)
+  ccdc_coefs$ID<-NULL
   
   colnames(ccdc_coefs)<-name_ccdc_bands(n_seg=n_seg,names_only = T)
   
