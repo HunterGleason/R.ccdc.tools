@@ -174,3 +174,12 @@ sampled_ts['crosswalk']
 srdata<-as.data.frame(sampled_ts['srdata'])
 head(srdata)
 ```
+
+## Summarise (min, median, max) NDMI and NDWI indicies from CCDC image over specified time period (Currently only NDMI & NDWI).
+
+```{r fig.width=6, fig.height=6,}
+sumr_2020_ndmi_stats<-ccdc_ndmi_stats(ccdc_img,"2020-06-1","2020-08-30")
+plot(sumr_2020_ndmi_stats)
+
+```
+
