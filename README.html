@@ -167,88 +167,58 @@ pre code {
 </div>
 
 
+<!-- 
+Add a project state badge
+
+See <https://github.com/BCDevExchange/Our-Project-Docs/blob/master/discussion/projectstates.md> 
+If you have bcgovr installed and you use RStudio, click the 'Insert BCDevex Badge' Addin.
+-->
+<p><a href="https://github.com/bcgov/repomountie/blob/master/doc/lifecycle-badges.md"><img src="data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTE2IiBoZWlnaHQ9IjIwIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9IkxpZmVjeWNsZTogTWF0dXJpbmciPjx0aXRsZT5MaWZlY3ljbGU6IE1hdHVyaW5nPC90aXRsZT48bGluZWFyR3JhZGllbnQgaWQ9InMiIHgyPSIwIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjYmJiIiBzdG9wLW9wYWNpdHk9Ii4xIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLW9wYWNpdHk9Ii4xIi8+PC9saW5lYXJHcmFkaWVudD48Y2xpcFBhdGggaWQ9InIiPjxyZWN0IHdpZHRoPSIxMTYiIGhlaWdodD0iMjAiIHJ4PSIzIiBmaWxsPSIjZmZmIi8+PC9jbGlwUGF0aD48ZyBjbGlwLXBhdGg9InVybCgjcikiPjxyZWN0IHdpZHRoPSI1NyIgaGVpZ2h0PSIyMCIgZmlsbD0iIzU1NSIvPjxyZWN0IHg9IjU3IiB3aWR0aD0iNTkiIGhlaWdodD0iMjAiIGZpbGw9IiMwMDdlYzYiLz48cmVjdCB3aWR0aD0iMTE2IiBoZWlnaHQ9IjIwIiBmaWxsPSJ1cmwoI3MpIi8+PC9nPjxnIGZpbGw9IiNmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJWZXJkYW5hLEdlbmV2YSxEZWphVnUgU2FucyxzYW5zLXNlcmlmIiB0ZXh0LXJlbmRlcmluZz0iZ2VvbWV0cmljUHJlY2lzaW9uIiBmb250LXNpemU9IjExMCI+PHRleHQgYXJpYS1oaWRkZW49InRydWUiIHg9IjI5NSIgeT0iMTUwIiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIiB0cmFuc2Zvcm09InNjYWxlKC4xKSIgdGV4dExlbmd0aD0iNDcwIj5MaWZlY3ljbGU8L3RleHQ+PHRleHQgeD0iMjk1IiB5PSIxNDAiIHRyYW5zZm9ybT0ic2NhbGUoLjEpIiBmaWxsPSIjZmZmIiB0ZXh0TGVuZ3RoPSI0NzAiPkxpZmVjeWNsZTwvdGV4dD48dGV4dCBhcmlhLWhpZGRlbj0idHJ1ZSIgeD0iODU1IiB5PSIxNTAiIGZpbGw9IiMwMTAxMDEiIGZpbGwtb3BhY2l0eT0iLjMiIHRyYW5zZm9ybT0ic2NhbGUoLjEpIiB0ZXh0TGVuZ3RoPSI0OTAiPk1hdHVyaW5nPC90ZXh0Pjx0ZXh0IHg9Ijg1NSIgeT0iMTQwIiB0cmFuc2Zvcm09InNjYWxlKC4xKSIgZmlsbD0iI2ZmZiIgdGV4dExlbmd0aD0iNDkwIj5NYXR1cmluZzwvdGV4dD48L2c+PC9zdmc+" alt="img" /></a></p>
 <div id="r.ccdc.tools" class="section level1">
 <h1>R.ccdc.tools</h1>
-<p>Simple R tools for working with Continuous Change Detection and Classification (Zhu &amp; Woodcock 2014) images.</p>
+<p>Description of package</p>
+<p>Simple R tools for working with Continuous Change Detection and Classification (CCDC) (Zhu &amp; Woodcock 2014) images.</p>
+<div id="features" class="section level3">
+<h3>Features</h3>
+<p>Includes various tools for creating derivative products from CCDC images output from Google Earth Engine including: plotting surface reflectance time series, getting CCDC coefficients for specific dates, creating ‘synthetic’ images and a few extras.</p>
 </div>
-<div id="installation" class="section level1">
-<h1>Installation</h1>
-<pre><code>remotes::install_github(&#39;HunterGleason/R.ccdc.tools&#39;)
-</code></pre>
+<div id="installation" class="section level3">
+<h3>Installation</h3>
+<pre class="{r}"><code>remotes::install_github(&quot;R.ccdc.tools&quot;)</code></pre>
 </div>
-<div id="example" class="section level1">
-<h1>Example</h1>
-<pre><code>
-#Imports
-library(R.ccdc.tools)
-library(stars)
-library(sf)
-library(terra)
-library(bcdata)
+<div id="usage" class="section level3">
+<h3>Usage</h3>
+<p>See <a href="https://htmlpreview.github.io/?https://github.com/HunterGleason/R.ccdc.tools/blob/main/vignettes/ccdc-vignette.html">vignette</a> for specific usage examples.</p>
+</div>
+<div id="project-status" class="section level3">
+<h3>Project Status</h3>
+<p>Currently maturing, developed for Landsat time series, working to incorporating Sentinel-2.</p>
+</div>
+<div id="getting-help-or-reporting-an-issue" class="section level3">
+<h3>Getting Help or Reporting an Issue</h3>
+<p>To report bugs/issues/feature requests, please file an <a href="https://github.com/bcgov/R.ccdc.tools/issues/">issue</a>.</p>
+</div>
+<div id="how-to-contribute" class="section level3">
+<h3>How to Contribute</h3>
+<p>If you would like to contribute to the package, please see our <a href="CONTRIBUTING.md">CONTRIBUTING</a> guidelines.</p>
+<p>Please note that this project is released with a <a href="CODE_OF_CONDUCT.md">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
+</div>
+<div id="license" class="section level3">
+<h3>License</h3>
+<pre><code>Copyright 2022 Province of British Columbia
 
-#Read in a CDCC image example data (see https://github.com/parevalo/gee-ccdc-tools) as a stars object
-ccdc_img = exampleData
+Licensed under the Apache License, Version 2.0 (the &amp;quot;License&amp;quot;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-#Example coordinates (EPSG:3005) within the image bounds
-x_coord&lt;-1794708.42
-y_coord&lt;-611511.36
-epsg&lt;-3005
+http://www.apache.org/licenses/LICENSE-2.0
 
-#Extract the model coeffcients at the point from the CCDC image
-DF &lt;- data.frame(x = c(x_coord), y = c(y_coord))
-DF_sf = st_as_sf(DF, coords = c(&quot;x&quot;, &quot;y&quot;), 
-                 crs = st_crs(epsg), agr = &quot;constant&quot;)
-extracted &lt;- st_as_sf(st_extract(ccdc_img, DF_sf))
-
-#View the coeffcients for each segment, these are used in &#39;get_ccdc_ts&#39; to generate the time series data
-ccdc_coefs &lt;- as.data.frame(extracted)
-ccdc_coefs
-
-#Get the green surface reflectance time series (ts) for up to 4-segments at the point.
-ts_green&lt;-get_ccdc_ts(ccdc_img,x_coord,y_coord,epsg,&#39;green&#39;,4)
-
-#Get the near-infrared (nir) surface reflectance time series (ts) for up to 4-segments at the point.
-ts_nir&lt;-get_ccdc_ts(ccdc_img,x_coord,y_coord,epsg,&#39;nir&#39;,4)
-
-#Plot the time series 
-plot(jday_to_date(ts_green[,&#39;jdoy_vec&#39;]),ts_green[,&#39;ts&#39;],type=&#39;l&#39;,xlab=&#39;Julian Date&#39;,ylab=&#39;Green Band Surface Reflectance&#39;)
-plot(jday_to_date(ts_nir[,&#39;jdoy_vec&#39;]),ts_nir[,&#39;ts&#39;],type=&#39;l&#39;,xlab=&#39;Julian Date&#39;,ylab=&#39;NIR Band Surface Reflectance&#39;)
-
-#Get a CCDC image with coeffecents for segments occuring during July 15, 2021 (i.e., near present day landscape conditions)
-latest&lt;-gen_ccdc_at_jdoy(ccdc_img,as.Date(&#39;2021-07-15&#39;))
-plot(latest)
-
-#Load a example catagorical layer (e.g., landcover polygons)
-landcover &lt;- landcover
-landcover &lt;- vect(landcover)
-
-#Get freshwater wetlands within AOI, merge with landcover layer 
-wetlands&lt;-bcdc_query_geodata(&#39;93b413d8-1840-4770-9629-641d74bd1cc6&#39;) %&gt;%
-  filter(INTERSECTS(st_bbox(st_as_stars(latest)))) %&gt;%
-  collect()
-
-wetlands&lt;-wetlands[,&#39;id&#39;]
-wetlands$landcover&lt;-&#39;Wetland&#39;
-
-
-landcover &lt;- rbind(landcover,vect(wetlands)) 
-
-#Plot layers
-plot(latest,maxnl=1)
-plot(landcover,add=T,col=as.factor(landcover$landcover))
-
-#Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the near infarred band (&#39;nir&#39;) over a 720 day period 
-plot_ccdc_ts_bypoly(latest,landcover,&#39;landcover&#39;,720,&#39;nir&#39;,60)
-
-#Same plot as above, only showing quartiles
-plot_ccdc_ts_quartiles(latest,landcover,&#39;landcover&#39;,720,&#39;nir&#39;)
-
-#Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the shortwave infrared band 2 (&#39;swir2&#39;) over a 720 day period 
-plot_ccdc_ts_bypoly(latest,landcover,&#39;landcover&#39;,720,&#39;swir2&#39;,60)
-
-#Plot CCDC 60 sample time series by polygon type (i.e., landcover) for the shortwave infrared band 2 (&#39;swir2&#39;) over a 720 day period 
-plot_ccdc_ts_quartiles(latest,landcover,&#39;landcover&#39;,720,&#39;swir2&#39;)
-</code></pre>
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an &amp;quot;AS IS&amp;quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and limitations under the License.</code></pre>
+<hr />
+<p><em>This project was created using the <a href="https://github.com/bcgov/bcgovr">bcgovr</a> package.</em></p>
+</div>
 </div>
 
 

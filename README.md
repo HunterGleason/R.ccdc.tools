@@ -5,26 +5,28 @@ See <https://github.com/BCDevExchange/Our-Project-Docs/blob/master/discussion/pr
 If you have bcgovr installed and you use RStudio, click the 'Insert BCDevex Badge' Addin.
 -->
 
+[![img](https://img.shields.io/badge/Lifecycle-Maturing-007EC6)](https://github.com/bcgov/repomountie/blob/master/doc/lifecycle-badges.md)
+
 R.ccdc.tools
 ============
 
 Description of package
 
+Simple R tools for working with Continuous Change Detection and Classification (CCDC) (Zhu & Woodcock 2014) images.
+
 ### Features
+Includes various tools for creating derivative products from CCDC images output from Google Earth Engine including: plotting surface reflectance time series, getting CCDC coefficients for specific dates, creating 'synthetic' images and a few extras. 
 
 ### Installation
-
-### Usage
-
-#### Example
-
-This is a basic example which shows you how to solve a common problem:
-
-```{r example}
-## basic example code
+```{r}
+remotes::install_github("R.ccdc.tools")
 ```
 
+### Usage
+See [vignette](https://htmlpreview.github.io/?https://github.com/HunterGleason/R.ccdc.tools/blob/main/vignettes/ccdc-vignette.html) for specific usage examples. 
+
 ### Project Status
+Currently maturing, developed for Landsat time series, working to incorporating Sentinel-2. 
 
 ### Getting Help or Reporting an Issue
 
