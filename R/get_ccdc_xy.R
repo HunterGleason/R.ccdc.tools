@@ -3,9 +3,9 @@
 
 #' Predict surface reflectance using CCDC algorithm (Zhu & Woodcock 2014) 
 #'
-#' For a given Julian date, and set of coefficients, this function returns
+#' For a given Julian date, and set of CCDC coefficients, this function returns
 #' the calculated surface reflectance value using the full CCDC model described in 
-#' Zhu et al 2015. 
+#' Zhu et al 2015. Called by other functions.
 #'
 #' @param jdoy Julian date for which to predict surface reflectance
 #' @param coef_intp Coefficient for overall values for the ith Landsat Band
@@ -44,7 +44,7 @@ ccdc_func<-function(jdoy,coef_intp,coef_slp,coef_cos,coef_sin,coef_cos2,coef_sin
 #' @param y_coord (float) Value of the Y coordinate of interest, must intersect the CCDC image 
 #' @param epsg (integer) EPSG code for CRS of the CCDC image 
 #' @param band (character) Band of interest, i.e., 'blue','green','red','nir','swir1','swir2' or 'therm'
-#' @param n_seg (integer) Default 4. Number of segments to compute time series for, must be 
+#' @param n_seg (integer) Default 8. Number of segments to compute time series for, must be 
 #' less then or equal to maximum number of exported segments (i.e., see EE script)
 #' @return A 2-col matrix with the Julian date time series in the first and the
 #' predicted CCDC time series in the second. 
@@ -111,8 +111,3 @@ get_ccdc_ts <- function(ccdc_img,x_coord,y_coord,epsg,band,n_seg=8)
   
 }
 
-
-# setwd("~/CDCC")
-# ndmi_ts = stars::read_stars("koot_ts_seg4_lasso_pnt01.tif",n_proxy=10^10)
-# ts<-plot_ts(ndmi_ts,1788456.97366881,633915.51542255,3005,'green',4)
-# plot(ts[,1],ts[,2],type='l')

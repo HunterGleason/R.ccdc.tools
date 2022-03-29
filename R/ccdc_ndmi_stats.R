@@ -2,7 +2,7 @@
 #'
 #'At each pixel in the CCDC image the NDMI and NDWI are calculated for the specified date range. From this time series the 
 #'min, max, median as well as the number of days since the start date that mins and maxes occur are returned. 
-#'!!Assumes that coefficients for up to eight segments are present and properly named in CCDC image (see Earth Engine script)!!
+#'!!Assumes that coefficients for up to 8 segments are present and properly named in CCDC image (see Earth Engine script)!!
 #'
 #' @param ccdc_img (SpatRaster, stars, XY data.frame (fastest)) The CCDC image for which to extract coefficients for computing NDMI and NDWI. 
 #' @param start_date (Date,character) Start date for which to compute NDMI / NDWI (must be later then March 1 1984, and earlier than present date).

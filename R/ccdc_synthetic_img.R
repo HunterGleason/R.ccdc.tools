@@ -1,11 +1,11 @@
 #' Get the segment coefficients from the CCDC image at a specific Julian date (see Zhu & Woodcock 2014) 
 #'
-#' Using the coefficients from the CCDC image a gap free Landsat Scene for any date (within the date range of the CCDC image) 
+#' Using the coefficients from the CCDC image a Landsat Scene for any date (within the date range of the CCDC time series) 
 #' can be generated using this function. 
 #' @param ccdc_img (SpatRaster, stars or data.frame) The CCDC image for which to extract coefficients as SpatRaster, stars or data.frame 
 #' with XY coordinates (i.e., terra::as.data.frame(img,xy=T)), data.frame is the fastest. 
 #' @param date (character) Date for which to extract CCDC coefficients (must be with in the date range for which the CCDC image was processed).
-#' @param orig_crs (optional) In the case that a data.frame is provided this must be set to the original CRS of the image 
+#' @param orig_crs (Terra CRS, optional) In the case that a data.frame is provided this must be set to the original CRS of the image 
 #' in format recognized by 'Terra' package. 
 #' @return (SpatRaster) A SpatRaster with all 7 Landsat bands predicted from the CCDC coefficients for the specified date.   
 #' @export
@@ -616,7 +616,7 @@ gen_ccdc_synthetic_img<-function(ccdc_img,date,orig_crs=NULL)
 #' Uses know naming convention to name the bands of a CCDC image exported from Google Earth Engine script in the case that they are missing.
 #' Typically only needed for VRTs and CCDC exports of >5 segments.  
 #' @param ccdc_img (SpatRaster, stars) The CCDC image for which to name bands, can be NULL if names_only is True
-#' @param n_seg (integer) The number of CCDC change segments exported by the Google Earth Engine script (must match ccdc_img)
+#' @param n_seg (integer) The number of CCDC change segments exported by the Google Earth Engine script (!must match N segments in ccdc_img!)
 #' @param names_only (boolean) Indicates if the renamed image should be returned, or just a char vector of band names (default False) 
 #' @return (SpatRaster) The same CCDC image used as input with missing band names correctly named.   
 #' @export
