@@ -39,7 +39,7 @@ ccdc_func(
 A floating point value for the calculated surface reflectance
 }
 \description{
-For a given Julian date, and set of coefficients, this function returns
+For a given Julian date, and set of CCDC coefficients, this function returns
 the calculated surface reflectance value using the full CCDC model described in
-Zhu et al 2015.
+Zhu et al 2015. Called by other functions.
 }

@@ -19,5 +19,5 @@ ccdc_ndmi_stats(ccdc_img, start_date, end_date, crs = NULL)
 \description{
 At each pixel in the CCDC image the NDMI and NDWI are calculated for the specified date range. From this time series the
 min, max, median as well as the number of days since the start date that mins and maxes occur are returned.
-!!Assumes that coefficients for up to eight segments are present and properly named in CCDC image (see Earth Engine script)!!
+!!Assumes that coefficients for up to 8 segments are present and properly named in CCDC image (see Earth Engine script)!!
 }

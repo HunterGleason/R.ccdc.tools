@@ -6,7 +6,14 @@
 with the coefficient from a CCDC image for a given date. Points are returned as a data.frame. Useful function for
 a large area of interest, i.e., as a alternative to 'plot_ccdc_ts_quartiles'.}
 \usage{
-sample_ccdc_by_catg(polygons_pth, ccdc_img_pth, pnts_count, sep_dist, env)
+sample_ccdc_by_catg(
+  polygons_pth,
+  ccdc_img_pth,
+  pnts_count,
+  sep_dist,
+  bands = c("blue", "green", "red", "nir", "swir1", "swir2", "therm"),
+  env
+)
 }
 \arguments{
 \item{polygons_pth}{(character) File path to polygon vector file with categories of interest.}
@@ -16,6 +23,8 @@ sample_ccdc_by_catg(polygons_pth, ccdc_img_pth, pnts_count, sep_dist, env)
 \item{pnts_count}{(integer) Total number of X-Y locations to sample throughout ALL polygons.}
 
 \item{sep_dist}{(integer) Minimum distance in map units that two sample locations can be.}
+
+\item{bands}{(character) Vector of band names present in CCDC image (in order), defaults to c('blue','green','red','nir','swir1','swir2','therm')}
 
 \item{env}{(RSAGA environment) A RSAGA environment to use.}
 }

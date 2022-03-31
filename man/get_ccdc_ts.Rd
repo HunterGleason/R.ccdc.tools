@@ -18,7 +18,7 @@ with all coefficients for each segment present (i.e., see EE script)}
 
 \item{band}{(character) Band of interest, i.e., 'blue','green','red','nir','swir1','swir2' or 'therm'}
 
-\item{n_seg}{(integer) Default 4. Number of segments to compute time series for, must be
+\item{n_seg}{(integer) Default 8. Number of segments to compute time series for, must be
 less then or equal to maximum number of exported segments (i.e., see EE script)}
 }
 \value{

@@ -7,10 +7,11 @@
 #'
 #' @param ccdc_img (SpatRaster, stars) The CCDC image for which to extract coefficients.
 #' @param date (Date) Date for which to extract CCDC coefficients (must be later then March 1 1984, and earlier than present date). 
+#' @param band_vect (charachter) Character vector of band names to return CCDC coefficients for. 
 #' @return (SpatRaster) A SpatRaster with all CCDC coefficients (and tStart,tEnd) associated with the segment corresponding with the
 #' specified Julian date. If the date is very recent, some data may be missing.  
 #' @export
-gen_ccdc_at_jdoy<-function(ccdc_img,date)
+gen_ccdc_at_jdoy<-function(ccdc_img,date,band_vect=c('blue','green','red','nir','swir1','swir2','therm'))
 {
   
   jdoy<-date_to_jdoy(date)
@@ -89,7 +90,7 @@ gen_ccdc_at_jdoy<-function(ccdc_img,date)
   s8_names_select<-c("x","y")
   names_final<-c("x","y")
   
-  for(b in c("blue","green","red","nir","swir1","swir2","therm"))
+  for(b in band_vect)
   {
     for(coef in c("INTP","SLP","COS","SIN","COS2","SIN2","COS3","SIN3","RMSE"))
     {

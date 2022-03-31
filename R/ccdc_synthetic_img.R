@@ -1,7 +1,8 @@
 #' Get the segment coefficients from the CCDC image at a specific Julian date (see Zhu & Woodcock 2014) 
 #'
-#' Using the coefficients from the CCDC image a Landsat Scene for any date (within the date range of the CCDC time series) 
-#' can be generated using this function. 
+#' Using the coefficients from the CCDC image a scene for any date (within the date range of the CCDC time series) 
+#' can be generated using this function. Function assumes that all bands ('blue','green','red','nir','swir1','swir2','therm')
+#' are present in the image. 
 #' @param ccdc_img (SpatRaster, stars or data.frame) The CCDC image for which to extract coefficients as SpatRaster, stars or data.frame 
 #' with XY coordinates (i.e., terra::as.data.frame(img,xy=T)), data.frame is the fastest. 
 #' @param date (character) Date for which to extract CCDC coefficients (must be with in the date range for which the CCDC image was processed).
@@ -617,15 +618,16 @@ gen_ccdc_synthetic_img<-function(ccdc_img,date,orig_crs=NULL)
 #' Typically only needed for VRTs and CCDC exports of >5 segments.  
 #' @param ccdc_img (SpatRaster, stars) The CCDC image for which to name bands, can be NULL if names_only is True
 #' @param n_seg (integer) The number of CCDC change segments exported by the Google Earth Engine script (!must match N segments in ccdc_img!)
+#' @param bands (character) The bands exported from Earth Engine (in order), defaults to c('blue','green','red','nir','swir1','swir2','therm')
 #' @param names_only (boolean) Indicates if the renamed image should be returned, or just a char vector of band names (default False) 
 #' @return (SpatRaster) The same CCDC image used as input with missing band names correctly named.   
 #' @export
-name_ccdc_bands<-function(ccdc_img=NULL,n_seg,names_only=F)
+name_ccdc_bands<-function(ccdc_img=NULL,n_seg,bands=c('blue','green','red','nir','swir1','swir2','therm'),names_only=F)
 {
   band_names<-c()
   
   index<-1
-  for(band in c('blue','green','red','nir','swir1','swir2','therm'))
+  for(band in bands)
   {
     for(seg in c(1:n_seg))
     {
@@ -637,7 +639,7 @@ name_ccdc_bands<-function(ccdc_img=NULL,n_seg,names_only=F)
     }
   }
   
-  for(band in c('blue','green','red','nir','swir1','swir2','therm'))
+  for(band in bands)
   {
     for(coef in c('RMSE','MAG'))
     {

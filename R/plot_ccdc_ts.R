@@ -188,11 +188,12 @@ plot_ccdc_ts_quartiles<-function (ccdc_img,ccdc_img_date,zone_poly, catg_col, da
 #' @param polygons_pth  (character) File path to polygon vector file with categories of interest.   
 #' @param ccdc_img_pth (character) File path to raster file (e.g. GeoTiff) CCDC image for given date (see 'gen_ccdc_at_jdoy')
 #' @param pnts_count (integer) Total number of X-Y locations to sample throughout ALL polygons. 
-#' @param sep_dist (integer) Minimum distance in map units that two sample locations can be. 
+#' @param sep_dist (integer) Minimum distance in map units that two sample locations can be.
+#' @param bands (character) Vector of band names present in CCDC image (in order), defaults to c('blue','green','red','nir','swir1','swir2','therm')  
 #' @param env (RSAGA environment) A RSAGA environment to use. 
 #' @return (data.frame) A data.frame with the sample locations, attributed with the polygon data and CCDC grid coefficient values.  
 #' @export
-sample_ccdc_by_catg<-function(polygons_pth,ccdc_img_pth,pnts_count,sep_dist,env)
+sample_ccdc_by_catg<-function(polygons_pth,ccdc_img_pth,pnts_count,sep_dist,bands= c('blue','green','red','nir','swir1','swir2','therm') ,env)
 {
   
   cat("Loading Polygons ...","\n")
@@ -230,72 +231,19 @@ sample_ccdc_by_catg<-function(polygons_pth,ccdc_img_pth,pnts_count,sep_dist,env)
   
   ccdc_img_at_pnts<-sf::read_sf(file.path(tempdir(),"random_pnts.shp"))
   
+  band_names<-c()
+  i<-1
   
-  band_names<-c("blue_INTP",
-                "blue_SLP",
-                "blue_COS",
-                "blue_SIN",
-                "blue_COS2",
-                "blue_SIN2",
-                "blue_COS3",
-                "blue_SIN3",
-                "blue_RMSE",
-                "green_INTP",
-                "green_SLP",
-                "green_COS",
-                "green_SIN",
-                "green_COS2",
-                "green_SIN2",
-                "green_COS3",
-                "green_SIN3",
-                "green_RMSE",
-                "red_INTP",
-                "red_SLP",
-                "red_COS",
-                "red_SIN",
-                "red_COS2",
-                "red_SIN2",
-                "red_COS3",
-                "red_SIN3",
-                "red_RMSE",
-                "nir_INTP",
-                "nir_SLP",
-                "nir_COS",
-                "nir_SIN",
-                "nir_COS2",
-                "nir_SIN2",
-                "nir_COS3",
-                "nir_SIN3",
-                "nir_RMSE",
-                "swir1_INTP",
-                "swir1_SLP",
-                "swir1_COS",
-                "swir1_SIN",
-                "swir1_COS2",
-                "swir1_SIN2",
-                "swir1_COS3",
-                "swir1_SIN3",
-                "swir1_RMSE",
-                "swir2_INTP",
-                "swir2_SLP",
-                "swir2_COS",
-                "swir2_SIN",
-                "swir2_COS2",
-                "swir2_SIN2",
-                "swir2_COS3",
-                "swir2_SIN3",
-                "swir2_RMSE",
-                "therm_INTP",
-                "therm_SLP",
-                "therm_COS",
-                "therm_SIN",
-                "therm_COS2",
-                "therm_SIN2",
-                "therm_COS3",
-                "therm_SIN3",
-                "therm_RMSE",
-                "tStart",
-                "tEnd") 
+  for(b in bands)
+  {
+    for(coe in c("INTP","SLP","COS","SIN","COS2","SIN2","COS3","SIN3","RMSE"))
+    {
+      band_names[i]<-paste0(b,"_",coe)
+      i<-i+1
+    }
+  }
+  band_names<-c(band_names,"tStart","tEnd")
+  
   
   colnames(ccdc_img_at_pnts)[c(offset:(ncol(ccdc_img_at_pnts)-1))]<-band_names
   

@@ -12,13 +12,14 @@ with XY coordinates (i.e., terra::as.data.frame(img,xy=T)), data.frame is the fa
 
 \item{date}{(character) Date for which to extract CCDC coefficients (must be with in the date range for which the CCDC image was processed).}
 
-\item{orig_crs}{(optional) In the case that a data.frame is provided this must be set to the original CRS of the image
+\item{orig_crs}{(Terra CRS, optional) In the case that a data.frame is provided this must be set to the original CRS of the image
 in format recognized by 'Terra' package.}
 }
 \value{
 (SpatRaster) A SpatRaster with all 7 Landsat bands predicted from the CCDC coefficients for the specified date.
 }
 \description{
-Using the coefficients from the CCDC image a gap free Landsat Scene for any date (within the date range of the CCDC image)
-can be generated using this function.
+Using the coefficients from the CCDC image a scene for any date (within the date range of the CCDC time series)
+can be generated using this function. Function assumes that all bands ('blue','green','red','nir','swir1','swir2','therm')
+are present in the image.
 }
