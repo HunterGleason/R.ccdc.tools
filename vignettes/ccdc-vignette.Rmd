@@ -185,5 +185,5 @@ plot(sumr_2020_ndmi_stats)
 
 ## Conclusion
 
-The examples above demonstrate only a few possible applications of the CCDC outputs, but there are many not shown here. The *R.ccdc.tools* package is designed to simplify applying the CCDC outputs to various tasks.
+The examples above demonstrate only a few possible applications of the CCDC outputs, but there are many not shown here. The *R.ccdc.tools* package is designed to simply working with CCDC images in R. 
 
