@@ -1,7 +1,7 @@
 Package: R.ccdc.tools
 Title: Simple Tools for Processing Zhu & Woodcock 2014 CCDC Outputs 
 Version: 0.0.0.9000
-Authors@R: c(person("Hunter","Gleason","Hunter.Gleason@gov.bc.ca", role = c("aut", "cre")),person("Province of British Columbia", role = "cph"))
+Authors@R: c(person("Hunter","Gleason",email="Hunter.Gleason@gov.bc.ca", role = c("aut", "cre")),person("Province of British Columbia", role = "cph"))
 Description: This package provides simple tools for performing various processing and plotting tasks using Continious Change Detection and Classification (CCDC) images exported from Google Earth Engine. 
 License: Apache License (== 2.0) | file LICENSE
 Encoding: UTF-8
